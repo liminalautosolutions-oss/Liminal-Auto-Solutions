@@ -95,5 +95,3 @@ export const Hero = () => {
     </section>
   );
 };
-
-// (trailing closer retained below)
