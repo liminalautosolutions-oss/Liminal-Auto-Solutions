@@ -77,7 +77,7 @@ export const Hero = () => {
                 }}
                 className="inline-block mr-[0.3em] last:mr-0"
               >
-                {i === 2 ? <em className="italic text-ember-gradient">{word}</em> : word}
+                {i === 2 ? <em className="text-ember-gradient">{word}</em> : word}
               </motion.span>
             ))}
           </h1>

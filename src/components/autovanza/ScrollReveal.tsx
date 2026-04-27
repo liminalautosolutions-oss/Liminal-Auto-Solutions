@@ -24,7 +24,7 @@ const Word = ({
       style={{ opacity, y, filter }}
       className="inline-block mr-[0.22em] will-change-transform"
     >
-      {isAccent ? <span className="italic text-ember">{word}</span> : word}
+      {isAccent ? <span className="text-ember">{word}</span> : word}
     </motion.span>
   );
 };

@@ -31,7 +31,7 @@ export const Industry = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="md:col-span-8 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight"
           >
-            Built for a <em className="italic text-ember">single</em> industry.
+            Built for a <em className="text-ember">single</em> industry.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

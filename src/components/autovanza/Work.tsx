@@ -44,7 +44,7 @@ export const Work = () => {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight max-w-4xl mb-20"
         >
-          Proof in <em className="italic text-ember">execution</em>.
+          Proof in <em className="text-ember">execution</em>.
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">

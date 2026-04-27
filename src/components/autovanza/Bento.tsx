@@ -42,7 +42,7 @@ export const Bento = () => {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-[-0.025em] max-w-5xl mb-16 md:mb-24"
         >
-          One system. <em className="italic text-ember">Every surface</em> of your business.
+          One system. <em className="text-ember">Every surface</em> of your business.
         </motion.h2>
 
         {/* Bento */}
@@ -192,7 +192,7 @@ export const Bento = () => {
           >
             <div>
               <h3 className="font-display text-2xl md:text-4xl text-ink leading-tight">
-                Built only for <em className="italic text-ember">automotive</em>.
+                Built only for <em className="text-ember">automotive</em>.
               </h3>
               <p className="mt-2 text-xs md:text-sm text-ink-dim">
                 No generalists, no templates, no noise.

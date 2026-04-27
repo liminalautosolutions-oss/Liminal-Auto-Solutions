@@ -23,7 +23,7 @@ export const Contact = () => {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-[clamp(3rem,10vw,10rem)] leading-[0.9] tracking-tighter max-w-5xl mb-16 md:mb-24"
         >
-          Let's <em className="italic text-ember-gradient">build</em> something that lasts.
+          Let's <em className="text-ember-gradient">build</em> something that lasts.
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-px bg-border max-w-4xl">
