@@ -33,7 +33,7 @@ export const ScrollReveal = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 0.85", "start 0.05"],
+    offset: ["start 0.95", "center 0.35"],
   });
 
   // Parallax label + radial light
