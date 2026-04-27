@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import heroImg from "@/assets/work-detail.jpg";
+import heroImg from "@/assets/hero-car.jpg";
 
 export const Hero = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -91,21 +91,9 @@ export const Hero = () => {
           </motion.p>
         </div>
 
-        {/* Bottom scroll cue */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.4 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-ink-faint"
-        >
-          <span className="font-mono-label text-[0.6rem]">Scroll</span>
-          <motion.span
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-px h-10 bg-gradient-to-b from-ember to-transparent"
-          />
-        </motion.div>
       </motion.div>
     </section>
   );
 };
+
+// (trailing closer retained below)
