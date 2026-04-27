@@ -20,10 +20,12 @@ export const Hero = () => {
       <motion.div style={{ y, scale }} className="absolute inset-0">
         <img
           src={heroImg}
-          alt="Automotive detailing studio"
+          alt="Matte black luxury sports car in a minimalist concrete space"
           className="w-full h-full object-cover"
           width={1920}
           height={1280}
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-surface/50" />
         <div className="absolute inset-0 bg-gradient-to-b from-surface/40 via-transparent to-surface" />

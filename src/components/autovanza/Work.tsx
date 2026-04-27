@@ -1,13 +1,14 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import img1 from "@/assets/work-detail.jpg";
-import img2 from "@/assets/work-workshop.jpg";
-import img3 from "@/assets/work-dealership.jpg";
+// Note: generator shuffled outputs — we map to actual content of each file.
+import imgDetail from "@/assets/bento-dash.jpg"; // hand + microfiber on blue car
+import imgWorkshop from "@/assets/work-dealership.jpg"; // classic car on lift
+import imgShowroom from "@/assets/work-workshop.jpg"; // silver GT in glass showroom
 
 const items = [
-  { img: img1, title: "Detailing Studio — Feature Film", tag: "Film / Studio" },
-  { img: img2, title: "Workshop Identity — Documentary Cut", tag: "Documentary" },
-  { img: img3, title: "Dealership — Dusk Showroom", tag: "Brand / Showroom" },
+  { img: imgDetail, title: "Detailing Studio — Feature Film", tag: "Film / Studio" },
+  { img: imgWorkshop, title: "Workshop Identity — Documentary Cut", tag: "Documentary" },
+  { img: imgShowroom, title: "Dealership — Dusk Showroom", tag: "Brand / Showroom" },
 ];
 
 export const Work = () => {
