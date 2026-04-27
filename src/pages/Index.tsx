@@ -2,6 +2,7 @@ import { Navigation } from "@/components/autovanza/Navigation";
 import { Hero } from "@/components/autovanza/Hero";
 import { ScrollReveal } from "@/components/autovanza/ScrollReveal";
 import { Authority } from "@/components/autovanza/Authority";
+import { Bento } from "@/components/autovanza/Bento";
 import { Capabilities } from "@/components/autovanza/Capabilities";
 import { Work } from "@/components/autovanza/Work";
 import { Industry } from "@/components/autovanza/Industry";
@@ -31,6 +32,7 @@ const Index = () => {
       <Hero />
       <ScrollReveal />
       <Authority />
+      <Bento />
       <Capabilities />
       <Work />
       <Industry />

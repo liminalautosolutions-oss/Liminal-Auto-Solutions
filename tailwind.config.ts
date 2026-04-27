@@ -12,8 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Instrument Serif"', 'serif'],
-        sans: ['"Inter Tight"', 'system-ui', 'sans-serif'],
+        display: ['"New York"', 'ui-serif', '"Iowan Old Style"', 'Georgia', 'serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Helvetica Neue"', 'sans-serif'],
+        mono: ['"SF Mono"', 'ui-monospace', 'Menlo', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
