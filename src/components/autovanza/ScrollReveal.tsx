@@ -13,9 +13,9 @@ const Word = ({
   progress: MotionValue<number>;
   range: [number, number];
 }) => {
-  const opacity = useTransform(progress, range, [0.08, 1]);
-  const y = useTransform(progress, range, [14, 0]);
-  const blur = useTransform(progress, range, [6, 0]);
+  const opacity = useTransform(progress, range, [0.25, 1]);
+  const y = useTransform(progress, range, [10, 0]);
+  const blur = useTransform(progress, range, [3, 0]);
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
   const isAccent = word === "agency.";
 
