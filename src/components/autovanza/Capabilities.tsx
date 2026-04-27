@@ -44,7 +44,7 @@ export const Capabilities = () => {
           transition={{ duration: 0.8 }}
           className="flex items-baseline justify-between mb-6"
         >
-          <span className="font-mono-label text-ink-dim">◦ 02 / Capabilities</span>
+          <span className="font-mono-label text-ink-dim">◦ 03 / Capabilities</span>
         </motion.div>
 
         <motion.h2
