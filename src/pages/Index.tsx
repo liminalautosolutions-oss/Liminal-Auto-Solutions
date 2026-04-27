@@ -1,16 +1,46 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Navigation } from "@/components/autovanza/Navigation";
+import { Hero } from "@/components/autovanza/Hero";
+import { ScrollReveal } from "@/components/autovanza/ScrollReveal";
+import { Authority } from "@/components/autovanza/Authority";
+import { Capabilities } from "@/components/autovanza/Capabilities";
+import { Work } from "@/components/autovanza/Work";
+import { Industry } from "@/components/autovanza/Industry";
+import { About } from "@/components/autovanza/About";
+import { Process } from "@/components/autovanza/Process";
+import { Ecosystem } from "@/components/autovanza/Ecosystem";
+import { Contact } from "@/components/autovanza/Contact";
+import { Footer } from "@/components/autovanza/Footer";
+import { useEffect } from "react";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  useEffect(() => {
+    document.title = "AutoVanza — Built to Drive | Digital systems for automotive businesses";
+    const desc = "AutoVanza is a systems-driven digital partner built only for automotive — detailing studios, workshops, dealerships. Content, visibility, CRM and performance.";
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", desc);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <main className="relative bg-background text-foreground grain overflow-x-hidden">
+      <Navigation />
+      <Hero />
+      <ScrollReveal />
+      <Authority />
+      <Capabilities />
+      <Work />
+      <Industry />
+      <About />
+      <Process />
+      <Ecosystem />
+      <Contact />
+      <Footer />
+    </main>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
