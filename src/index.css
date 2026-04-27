@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&display=swap');
+/* Apple system fonts — SF Pro on macOS/iOS, New York serif for display. Falls back gracefully on other systems. */
 
 @tailwind base;
 @tailwind components;
@@ -76,8 +76,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter Tight', system-ui, sans-serif;
-    font-feature-settings: 'ss01', 'cv11';
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-feature-settings: "ss01", "cv11", "cv02";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
   }
 
   /* Custom selection */
@@ -101,15 +104,21 @@
 
 @layer components {
   .font-display {
-    font-family: 'Instrument Serif', 'Times New Roman', serif;
+    /* Apple's New York — ships with macOS/iOS as "ui-serif". Gorgeous, editorial. */
+    font-family: "New York", ui-serif, "Iowan Old Style", "Apple Garamond", Georgia, serif;
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+  }
+
+  .font-sf {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    letter-spacing: -0.022em;
   }
 
   .font-mono-label {
-    font-family: 'Inter Tight', sans-serif;
+    font-family: "SF Mono", ui-monospace, "Menlo", "Monaco", monospace;
     font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     font-weight: 500;
   }
