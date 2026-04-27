@@ -54,7 +54,7 @@ export const Capabilities = () => {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight max-w-4xl mb-20 md:mb-28"
         >
-          Six disciplines, one <em className="italic text-ember">operating system</em>.
+          Six disciplines, one <em className="text-ember">operating system</em>.
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-px bg-border">

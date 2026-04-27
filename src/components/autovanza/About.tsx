@@ -25,7 +25,7 @@ export const About = () => {
               className="font-display text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] tracking-tight"
             >
               We exist because the automotive industry deserves a partner
-              that <em className="italic text-ember">understands its floor</em>,
+              that <em className="text-ember">understands its floor</em>,
               not just its funnel.
             </motion.h2>
 
