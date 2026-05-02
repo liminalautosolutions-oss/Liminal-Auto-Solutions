@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import heroImg from "@/assets/hero-car.png";
+import heroImg from "@/assets/hero-car.jpg";
 
 export const Hero = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -9,50 +9,48 @@ export const Hero = () => {
     offset: ["start start", "end start"],
   });
 
-  const carY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const carScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
 
   return (
-    <section ref={ref} id="top" className="relative h-screen w-full overflow-hidden" style={{ background: '#ebebeb' }}>
-      {/* Subtle neumorphic ambient glow */}
-      <div className="absolute inset-0 bg-gradient-radial-ember opacity-30 pointer-events-none" />
+    <section ref={ref} id="top" className="relative h-screen w-full overflow-hidden bg-background">
+      {/* Full-bleed car image */}
+      <motion.div
+        style={{ y: imgY, scale: imgScale }}
+        className="absolute inset-0 z-0"
+      >
+        <img
+          src={heroImg}
+          alt="Orange McLaren 650S side profile studio shot"
+          className="w-full h-full object-cover object-center"
+          loading="eager"
+          fetchPriority="high"
+          width={1920}
+          height={1080}
+        />
+        {/* Top fade to bg */}
+        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-background to-transparent" />
+      </motion.div>
 
-      {/* Giant AUTOVANZA text */}
+      {/* Giant AUTOVANZA text — positioned above car */}
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 z-10 flex items-start justify-center pt-[18vh] md:pt-[14vh] pointer-events-none"
       >
         <motion.h1
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(4rem,15vw,14rem)] leading-none tracking-[-0.04em] text-ink select-none"
+          className="font-display text-[clamp(4rem,14vw,13rem)] leading-none tracking-[-0.04em] text-foreground select-none"
         >
           AUTOVANZA
         </motion.h1>
       </motion.div>
 
-      {/* Car image — positioned in lower portion */}
-      <motion.div
-        style={{ y: carY, scale: carScale }}
-        className="absolute bottom-0 left-0 right-0 z-20 flex justify-center"
-      >
-        <motion.img
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          src={heroImg}
-          alt="Premium orange McLaren sports car"
-          className="w-full max-w-[85vw] md:max-w-[70vw] object-contain drop-shadow-2xl mix-blend-multiply"
-          loading="eager"
-          fetchPriority="high"
-        />
-      </motion.div>
-
-      {/* Subtle bottom gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-30 pointer-events-none" />
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-20 pointer-events-none" />
 
       {/* Top meta */}
       <motion.div
