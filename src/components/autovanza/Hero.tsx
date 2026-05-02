@@ -45,7 +45,7 @@ export const Hero = () => {
           transition={{ duration: 1.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           src={heroImg}
           alt="Premium orange McLaren sports car"
-          className="w-full max-w-[85vw] md:max-w-[70vw] object-contain drop-shadow-2xl"
+          className="w-full max-w-[85vw] md:max-w-[70vw] object-contain drop-shadow-2xl mix-blend-multiply"
           loading="eager"
           fetchPriority="high"
         />
