@@ -27,7 +27,7 @@ const Index = () => {
   }, []);
 
   return (
-    <main className="relative bg-background text-foreground grain overflow-x-hidden">
+    <main className="relative bg-background text-foreground overflow-x-hidden">
       <Navigation />
       <Hero />
       <ScrollReveal />

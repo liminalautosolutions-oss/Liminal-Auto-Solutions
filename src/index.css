@@ -1,63 +1,63 @@
-/* Apple system fonts — SF Pro on macOS/iOS, New York serif for display. Falls back gracefully on other systems. */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* AutoVanza Design System — editorial, cinematic, automotive */
+/* AutoVanza — White Neumorphism Design System */
 
 @layer base {
   :root {
-    /* Core canvas — deep warm near-black with off-white ink */
-    --background: 24 10% 6%;
-    --foreground: 36 30% 92%;
+    /* Core canvas — clean whites */
+    --background: 0 0% 95%;
+    --foreground: 0 0% 12%;
 
-    --card: 24 10% 8%;
-    --card-foreground: 36 30% 92%;
+    --card: 0 0% 93%;
+    --card-foreground: 0 0% 12%;
 
-    --popover: 24 10% 6%;
-    --popover-foreground: 36 30% 92%;
+    --popover: 0 0% 95%;
+    --popover-foreground: 0 0% 12%;
 
-    /* Primary — burnt amber (automotive ember) */
-    --primary: 22 85% 55%;
-    --primary-foreground: 24 10% 6%;
-    --primary-glow: 30 95% 62%;
+    /* Primary — deep charcoal */
+    --primary: 0 0% 15%;
+    --primary-foreground: 0 0% 95%;
+    --primary-glow: 0 0% 25%;
 
-    --secondary: 24 8% 12%;
-    --secondary-foreground: 36 30% 92%;
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 24 8% 14%;
-    --muted-foreground: 30 10% 60%;
+    --muted: 0 0% 88%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 22 85% 55%;
-    --accent-foreground: 24 10% 6%;
+    --accent: 30 80% 52%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 36 30% 92%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 30 10% 18%;
-    --input: 30 10% 18%;
-    --ring: 22 85% 55%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 0 0% 15%;
 
-    --radius: 0.125rem;
+    --radius: 1rem;
 
-    /* Editorial tokens */
-    --ink: 36 30% 92%;
-    --ink-dim: 30 12% 65%;
-    --ink-faint: 30 8% 40%;
-    --surface: 24 10% 6%;
-    --surface-raised: 24 10% 9%;
-    --ember: 22 85% 55%;
-    --ember-glow: 30 95% 62%;
+    /* Neumorphism tokens */
+    --ink: 0 0% 10%;
+    --ink-dim: 0 0% 40%;
+    --ink-faint: 0 0% 60%;
+    --surface: 0 0% 95%;
+    --surface-raised: 0 0% 92%;
+    --ember: 30 80% 52%;
+    --ember-glow: 35 90% 58%;
+
+    /* Neumorphism shadows */
+    --neu-shadow: 8px 8px 16px hsl(0 0% 82%), -8px -8px 16px hsl(0 0% 100%);
+    --neu-shadow-sm: 4px 4px 8px hsl(0 0% 84%), -4px -4px 8px hsl(0 0% 100%);
+    --neu-shadow-inset: inset 4px 4px 8px hsl(0 0% 84%), inset -4px -4px 8px hsl(0 0% 100%);
+    --neu-shadow-lg: 12px 12px 24px hsl(0 0% 80%), -12px -12px 24px hsl(0 0% 100%);
 
     /* Gradients */
-    --gradient-ember: linear-gradient(135deg, hsl(22 85% 55%), hsl(30 95% 62%));
-    --gradient-fade: linear-gradient(180deg, hsl(24 10% 6% / 0) 0%, hsl(24 10% 6% / 0.6) 50%, hsl(24 10% 6%) 100%);
-    --gradient-radial-ember: radial-gradient(ellipse at center, hsl(22 85% 55% / 0.15), transparent 60%);
-
-    /* Shadows */
-    --shadow-ember: 0 20px 60px -20px hsl(22 85% 55% / 0.35);
-    --shadow-deep: 0 40px 80px -30px hsl(0 0% 0% / 0.8);
+    --gradient-ember: linear-gradient(135deg, hsl(30 80% 52%), hsl(35 90% 58%));
+    --gradient-fade: linear-gradient(180deg, hsl(0 0% 95% / 0) 0%, hsl(0 0% 95% / 0.6) 50%, hsl(0 0% 95%) 100%);
+    --gradient-radial-ember: radial-gradient(ellipse at center, hsl(30 80% 52% / 0.08), transparent 60%);
 
     /* Motion */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,30 +83,16 @@
     letter-spacing: -0.011em;
   }
 
-  /* Custom selection */
   ::selection {
     background: hsl(var(--ember));
-    color: hsl(var(--surface));
-  }
-
-  /* Grain texture overlay */
-  .grain::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.04;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color: white;
   }
 }
 
 @layer components {
   .font-display {
-    /* Apple's New York — ships with macOS/iOS as "ui-serif". Gorgeous, editorial. */
-    font-family: "New York", ui-serif, "Iowan Old Style", "Apple Garamond", Georgia, serif;
-    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    font-weight: 700;
     letter-spacing: -0.025em;
   }
 
@@ -123,18 +109,45 @@
     font-weight: 500;
   }
 
+  /* Neumorphic card */
+  .neu {
+    background: hsl(var(--surface));
+    box-shadow: var(--neu-shadow);
+    border-radius: var(--radius);
+  }
+
+  .neu-sm {
+    background: hsl(var(--surface));
+    box-shadow: var(--neu-shadow-sm);
+    border-radius: var(--radius);
+  }
+
+  .neu-inset {
+    background: hsl(var(--surface));
+    box-shadow: var(--neu-shadow-inset);
+    border-radius: var(--radius);
+  }
+
+  .neu-lg {
+    background: hsl(var(--surface));
+    box-shadow: var(--neu-shadow-lg);
+    border-radius: var(--radius);
+  }
+
   .glass {
-    background: hsl(24 10% 8% / 0.55);
+    background: hsl(0 0% 95% / 0.7);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid hsl(36 30% 92% / 0.08);
+    border: 1px solid hsl(0 0% 100% / 0.6);
+    box-shadow: var(--neu-shadow-sm);
   }
 
   .glass-strong {
-    background: hsl(24 10% 6% / 0.72);
+    background: hsl(0 0% 95% / 0.85);
     backdrop-filter: blur(28px) saturate(160%);
     -webkit-backdrop-filter: blur(28px) saturate(160%);
-    border-bottom: 1px solid hsl(36 30% 92% / 0.06);
+    border-bottom: 1px solid hsl(0 0% 100% / 0.5);
+    box-shadow: 0 4px 12px hsl(0 0% 0% / 0.06);
   }
 
   .text-ember-gradient {
@@ -146,7 +159,7 @@
 
   .hair-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(var(--ink) / 0.18), transparent);
+    background: linear-gradient(90deg, transparent, hsl(0 0% 0% / 0.08), transparent);
   }
 
   .link-underline {

@@ -11,7 +11,7 @@ const segments = [
 
 export const Industry = () => {
   return (
-    <section id="industry" className="relative py-32 md:py-48">
+    <section id="industry" className="relative py-32 md:py-48 bg-background">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ export const Industry = () => {
           transition={{ duration: 0.8 }}
           className="flex items-baseline justify-between mb-6"
         >
-          <span className="font-mono-label text-ink-dim">◦ 04 / Industry</span>
+          <span className="font-mono-label text-ink-dim">04 / Industry</span>
         </motion.div>
 
         <div className="grid md:grid-cols-12 gap-12 items-end mb-20">
@@ -29,9 +29,9 @@ export const Industry = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-8 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight"
+            className="md:col-span-8 font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight text-ink"
           >
-            Built for a <em className="text-ember">single</em> industry.
+            Built for a <span className="text-ember">single</span> industry.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ export const Industry = () => {
           </motion.p>
         </div>
 
-        <div className="border-t border-border">
+        <div className="neu-lg overflow-hidden">
           {segments.map((seg, i) => (
             <motion.div
               key={seg}
@@ -53,7 +53,7 @@ export const Industry = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: i * 0.06 }}
-              className="group border-b border-border py-8 md:py-10 flex items-center justify-between cursor-default hover:bg-surface-raised transition-colors duration-500 px-2 md:px-4"
+              className="group border-b border-border/50 last:border-b-0 py-8 md:py-10 flex items-center justify-between cursor-default hover:bg-surface-raised transition-colors duration-500 px-6 md:px-10"
             >
               <div className="flex items-center gap-8 md:gap-16">
                 <span className="font-mono-label text-ink-faint">

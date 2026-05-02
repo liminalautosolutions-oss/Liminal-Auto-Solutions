@@ -1,10 +1,11 @@
 export const Footer = () => {
   return (
-    <footer className="border-t border-border py-12">
+    <footer className="py-12 bg-background">
+      <div className="hair-divider mb-12" />
       <div className="container flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-3">
           <span className="w-1.5 h-1.5 rounded-full bg-ember" />
-          <span className="font-display text-xl">AutoVanza</span>
+          <span className="font-display text-xl text-ink">AutoVanza</span>
           <span className="font-mono-label text-ink-faint ml-2">— Built to Drive</span>
         </div>
 

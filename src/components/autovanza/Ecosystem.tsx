@@ -1,19 +1,10 @@
 import { motion } from "framer-motion";
 
-const row = [
-  "Detailing",
-  "Workshops",
-  "Dealerships",
-  "PPF",
-  "Ceramic",
-  "Accessories",
-  "Car Spas",
-  "Restoration",
-];
+const row = ["Detailing", "Workshops", "Dealerships", "PPF", "Ceramic", "Accessories", "Car Spas", "Restoration"];
 
 export const Ecosystem = () => {
   return (
-    <section className="relative py-24 md:py-32 border-y border-border overflow-hidden">
+    <section className="relative py-24 md:py-32 overflow-hidden">
       <div className="container mb-10">
         <motion.div
           initial={{ opacity: 0 }}
@@ -22,7 +13,7 @@ export const Ecosystem = () => {
           transition={{ duration: 0.8 }}
           className="font-mono-label text-ink-dim"
         >
-          ◦ 07 / Ecosystem presence
+          07 / Ecosystem presence
         </motion.div>
       </div>
 
@@ -33,7 +24,7 @@ export const Ecosystem = () => {
               key={i}
               className="font-display text-5xl md:text-8xl text-ink-faint hover:text-ember transition-colors duration-500"
             >
-              {w} <span className="text-ember">⌁</span>
+              {w} <span className="text-ember">·</span>
             </span>
           ))}
         </div>
