@@ -15,7 +15,7 @@ export const Hero = () => {
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
 
   return (
-    <section ref={ref} id="top" className="relative h-screen w-full overflow-hidden bg-white">
+    <section ref={ref} id="top" className="relative h-screen w-full overflow-hidden" style={{ background: '#ebebeb' }}>
       {/* Subtle neumorphic ambient glow */}
       <div className="absolute inset-0 bg-gradient-radial-ember opacity-30 pointer-events-none" />
 
