@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Core canvas — clean whites */
-    --background: 220 14% 96%;
+    --background: 0 0% 93%;
     --foreground: 0 0% 12%;
 
     --card: 0 0% 93%;
