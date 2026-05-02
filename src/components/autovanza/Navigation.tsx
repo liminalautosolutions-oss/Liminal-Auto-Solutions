@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const nav = [
@@ -29,7 +29,7 @@ export const Navigation = () => {
       <div className="container flex items-center justify-between h-16 md:h-20">
         <a href="#top" className="flex items-center gap-2 group">
           <span className="w-1.5 h-1.5 rounded-full bg-ember animate-ember-pulse" />
-          <span className="font-display text-xl tracking-tight">AutoVanza</span>
+          <span className="font-display text-xl tracking-tight text-ink">AutoVanza</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-10">
@@ -46,7 +46,7 @@ export const Navigation = () => {
 
         <a
           href="#contact"
-          className="text-xs font-mono-label text-ink border border-ink/20 hover:border-ember hover:text-ember px-4 py-2.5 transition-all duration-500"
+          className="text-xs font-mono-label text-ink neu-sm px-4 py-2.5 hover:shadow-none transition-all duration-300"
         >
           Engage
         </a>

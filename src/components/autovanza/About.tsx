@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const About = () => {
   return (
-    <section id="about" className="relative py-32 md:py-48">
+    <section id="about" className="relative py-32 md:py-48 bg-background">
       <div className="container">
         <div className="grid md:grid-cols-12 gap-12 md:gap-20">
           <motion.div
@@ -12,7 +12,7 @@ export const About = () => {
             transition={{ duration: 0.8 }}
             className="md:col-span-4"
           >
-            <div className="font-mono-label text-ink-dim mb-4">◦ 06 / Foundation</div>
+            <div className="font-mono-label text-ink-dim mb-4">06 / Foundation</div>
             <div className="font-mono-label text-ink-faint">Est. 2019</div>
           </motion.div>
 
@@ -22,10 +22,10 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] tracking-tight"
+              className="font-display text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] tracking-tight text-ink"
             >
               We exist because the automotive industry deserves a partner
-              that <em className="text-ember">understands its floor</em>,
+              that <span className="text-ember">understands its floor</span>,
               not just its funnel.
             </motion.h2>
 

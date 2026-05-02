@@ -2,9 +2,7 @@ import { motion } from "framer-motion";
 
 export const Contact = () => {
   return (
-    <section id="contact" className="relative py-32 md:py-56 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-radial-ember opacity-50 pointer-events-none" />
-
+    <section id="contact" className="relative py-32 md:py-56 overflow-hidden bg-background">
       <div className="container relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -13,7 +11,7 @@ export const Contact = () => {
           transition={{ duration: 0.8 }}
           className="font-mono-label text-ink-dim mb-8"
         >
-          ◦ 08 / Engage
+          08 / Engage
         </motion.div>
 
         <motion.h2
@@ -21,12 +19,12 @@ export const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(3rem,10vw,10rem)] leading-[0.9] tracking-tighter max-w-5xl mb-16 md:mb-24"
+          className="font-display text-[clamp(3rem,10vw,10rem)] leading-[0.9] tracking-tighter max-w-5xl mb-16 md:mb-24 text-ink"
         >
-          Let's <em className="text-ember-gradient">build</em> something that lasts.
+          Let's <span className="text-ember-gradient">build</span> something that lasts.
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-px bg-border max-w-4xl">
+        <div className="grid md:grid-cols-3 gap-6 max-w-4xl">
           {[
             { label: "Email", value: "hello@autovanza.in", href: "mailto:hello@autovanza.in" },
             { label: "WhatsApp", value: "+91 · Direct line", href: "https://wa.me/" },
@@ -39,7 +37,7 @@ export const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="group bg-surface p-8 hover:bg-surface-raised transition-colors duration-500"
+              className="group neu p-8 hover:shadow-none transition-shadow duration-500"
             >
               <div className="font-mono-label text-ink-faint mb-6">{c.label}</div>
               <div className="font-display text-2xl text-ink group-hover:text-ember transition-colors duration-500">
