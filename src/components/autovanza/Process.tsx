@@ -9,7 +9,7 @@ const steps = [
 
 export const Process = () => {
   return (
-    <section className="relative py-32 md:py-48 bg-surface-raised">
+    <section className="relative py-20 md:py-16 bg-surface-raised">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -2,7 +2,6 @@ import { Navigation } from "@/components/autovanza/Navigation";
 import { Hero } from "@/components/autovanza/Hero";
 import { ScrollReveal } from "@/components/autovanza/ScrollReveal";
 import { Authority } from "@/components/autovanza/Authority";
-import { Bento } from "@/components/autovanza/Bento";
 import { Capabilities } from "@/components/autovanza/Capabilities";
 import { Work } from "@/components/autovanza/Work";
 import { Industry } from "@/components/autovanza/Industry";
@@ -12,8 +11,11 @@ import { Ecosystem } from "@/components/autovanza/Ecosystem";
 import { Contact } from "@/components/autovanza/Contact";
 import { Footer } from "@/components/autovanza/Footer";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
+  const location = useLocation();
+
   useEffect(() => {
     document.title = "AutoVanza — Built to Drive | Digital systems for automotive businesses";
     const desc = "AutoVanza is a systems-driven digital partner built only for automotive — detailing studios, workshops, dealerships. Content, visibility, CRM and performance.";
@@ -26,13 +28,24 @@ const Index = () => {
     meta.setAttribute("content", desc);
   }, []);
 
+  useEffect(() => {
+    if (location.hash) {
+      // Small timeout to ensure Framer Motion sections have mounted
+      setTimeout(() => {
+        const element = document.querySelector(location.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 300);
+    }
+  }, [location]);
+
   return (
-    <main className="relative bg-background text-foreground overflow-x-hidden">
+    <main className="relative bg-background text-foreground overflow-x-clip">
       <Navigation />
       <Hero />
       <ScrollReveal />
       <Authority />
-      <Bento />
       <Capabilities />
       <Work />
       <Industry />

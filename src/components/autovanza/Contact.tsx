@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const Contact = () => {
   return (
-    <section id="contact" className="relative py-32 md:py-56 overflow-hidden bg-background">
+    <section id="contact" className="relative py-20 md:py-56 overflow-hidden bg-background">
       <div className="container relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

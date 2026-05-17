@@ -4,7 +4,7 @@ const row = ["Detailing", "Workshops", "Dealerships", "PPF", "Ceramic", "Accesso
 
 export const Ecosystem = () => {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden">
+    <section className="relative py-16 md:py-20 overflow-hidden">
       <div className="container mb-10">
         <motion.div
           initial={{ opacity: 0 }}

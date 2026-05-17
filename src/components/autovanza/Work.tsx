@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import imgDetail from "@/assets/bento-dash.jpg";
 import imgWorkshop from "@/assets/work-dealership.jpg";
 import imgShowroom from "@/assets/work-workshop.jpg";
@@ -19,7 +20,7 @@ export const Work = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
-    <section id="work" ref={ref} className="relative py-32 md:py-48 bg-surface-raised overflow-hidden">
+    <section id="work" ref={ref} className="relative py-20 md:py-16 bg-surface-raised overflow-hidden">
       <div className="container relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,7 +29,7 @@ export const Work = () => {
           transition={{ duration: 0.8 }}
           className="flex items-baseline justify-between mb-6"
         >
-          <span className="font-mono-label text-ink-dim">04 / Work</span>
+          <span className="font-mono-label text-ink-dim">03 / Work</span>
         </motion.div>
 
         <motion.h2
@@ -41,35 +42,45 @@ export const Work = () => {
           Proof in <span className="text-ember">execution</span>.
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-          {items.map((w, i) => (
-            <motion.figure
-              key={w.title}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className={`group relative ${i === 1 ? "md:mt-24" : ""}`}
-            >
-              <div className="relative overflow-hidden aspect-[3/4] neu-lg">
-                <motion.img
-                  src={w.img}
-                  alt={w.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-[1.6s] group-hover:scale-105 rounded-[var(--radius)]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent rounded-[var(--radius)]" />
-                <div className="absolute top-5 left-5 font-mono-label text-ink-dim glass px-3 py-1.5 rounded-lg">
-                  {w.tag}
-                </div>
-              </div>
-              <figcaption className="mt-6 flex items-start justify-between gap-4">
-                <h3 className="font-display text-2xl text-ink leading-tight">{w.title}</h3>
-                <span className="font-mono-label text-ink-faint shrink-0 mt-1">0{i + 1}</span>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-full aspect-[9/16] md:aspect-video neu-lg overflow-hidden rounded-[var(--radius)] mb-16 group cursor-pointer"
+        >
+          {/* Replace this img with a <video> tag when you have the source */}
+          <img
+            src={imgDetail}
+            alt="AutoVanza Showreel"
+            className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-background/10 transition-colors duration-500 group-hover:bg-background/30" />
+          
+          <div className="absolute inset-0 flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full glass flex items-center justify-center border border-white/20 pl-2 shadow-2xl">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-ink ml-1">
+                <path d="M8 5v14l11-7L8 5z" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex justify-center"
+        >
+          <Link
+            to="/work"
+            className="inline-flex items-center gap-4 font-mono-label text-ink neu px-8 py-4 hover:shadow-none transition-all duration-300"
+          >
+            <span>View Full Portfolio</span>
+            <span className="text-ember">→</span>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

@@ -46,7 +46,7 @@ export const ScrollReveal = () => {
   return (
     <section
       ref={ref}
-      className="relative py-40 md:py-64 bg-background overflow-hidden"
+      className="relative py-16 md:py-20 bg-background overflow-hidden"
     >
       {/* Subtle animated glow */}
       <motion.div

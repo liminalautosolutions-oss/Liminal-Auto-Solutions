@@ -9,7 +9,7 @@ const stats = [
 
 export const Authority = () => {
   return (
-    <section className="relative py-24 md:py-32">
+    <section className="relative py-16 md:py-20">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

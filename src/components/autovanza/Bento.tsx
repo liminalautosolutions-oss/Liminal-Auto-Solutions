@@ -16,7 +16,7 @@ export const Bento = () => {
   const y3 = useTransform(scrollYProgress, [0, 1], ["3%", "-3%"]);
 
   return (
-    <section id="framework" ref={ref} className="relative py-32 md:py-48 bg-background overflow-hidden">
+    <section id="framework" ref={ref} className="relative py-20 md:py-16 bg-background overflow-hidden">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

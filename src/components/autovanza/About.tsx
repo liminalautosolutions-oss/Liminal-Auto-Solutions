@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const About = () => {
   return (
-    <section id="about" className="relative py-32 md:py-48 bg-background">
+    <section id="about" className="relative py-20 md:py-16 bg-background">
       <div className="container">
         <div className="grid md:grid-cols-12 gap-12 md:gap-20">
           <motion.div
