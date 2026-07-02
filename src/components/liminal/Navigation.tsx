@@ -84,9 +84,17 @@ export const Navigation = () => {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-500"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? isDarkNavbar
+              ? "bg-black/70 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20"
+              : "bg-white/70 backdrop-blur-md border-b border-black/5 shadow-sm"
+            : "bg-transparent border-b border-transparent"
+        }`}
       >
-        <div className="container flex items-center justify-between h-16 md:h-20">
+        <div className={`container flex items-center justify-between transition-all duration-500 ${
+          scrolled ? "h-14 md:h-16" : "h-16 md:h-20"
+        }`}>
           <Link to="/" className="flex items-center gap-2 group z-50 relative">
             <span className="w-1.5 h-1.5 rounded-full bg-ember animate-ember-pulse" />
             <span className={`font-display text-xl tracking-tight transition-colors duration-500 ${isDarkNavbar ? "text-white" : "text-black"}`}>
