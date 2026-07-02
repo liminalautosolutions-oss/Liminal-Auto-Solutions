@@ -1,15 +1,15 @@
-import { Navigation } from "@/components/autovanza/Navigation";
-import { Hero } from "@/components/autovanza/Hero";
-import { ScrollReveal } from "@/components/autovanza/ScrollReveal";
-import { Authority } from "@/components/autovanza/Authority";
-import { Capabilities } from "@/components/autovanza/Capabilities";
-import { Work } from "@/components/autovanza/Work";
-import { Industry } from "@/components/autovanza/Industry";
-import { About } from "@/components/autovanza/About";
-import { Process } from "@/components/autovanza/Process";
-import { Ecosystem } from "@/components/autovanza/Ecosystem";
-import { Contact } from "@/components/autovanza/Contact";
-import { Footer } from "@/components/autovanza/Footer";
+import { Navigation } from "@/components/liminal/Navigation";
+import { Hero } from "@/components/liminal/Hero";
+import { ScrollReveal } from "@/components/liminal/ScrollReveal";
+import { Authority } from "@/components/liminal/Authority";
+import { Capabilities } from "@/components/liminal/Capabilities";
+import { Work } from "@/components/liminal/Work";
+import { Industry } from "@/components/liminal/Industry";
+import { About } from "@/components/liminal/About";
+import { Process } from "@/components/liminal/Process";
+import { Ecosystem } from "@/components/liminal/Ecosystem";
+import { Contact } from "@/components/liminal/Contact";
+import { Footer } from "@/components/liminal/Footer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -17,8 +17,8 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = "AutoVanza — Built to Drive | Digital systems for automotive businesses";
-    const desc = "AutoVanza is a systems-driven digital partner built only for automotive — detailing studios, workshops, dealerships. Content, visibility, CRM and performance.";
+    document.title = "Liminal — Built to Drive | Digital systems for automotive businesses";
+    const desc = "Liminal is a systems-driven digital partner built only for automotive — detailing studios, workshops, dealerships. Content, visibility, CRM and performance.";
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement("meta");
@@ -45,10 +45,10 @@ const Index = () => {
       <Navigation />
       <Hero />
       <ScrollReveal />
+      <Industry />
       <Authority />
       <Capabilities />
       <Work />
-      <Industry />
       <About />
       <Process />
       <Ecosystem />

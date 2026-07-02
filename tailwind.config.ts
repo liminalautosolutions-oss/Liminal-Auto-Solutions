@@ -12,9 +12,17 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"New York"', 'ui-serif', '"Iowan Old Style"', 'Georgia', 'serif'],
-        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Helvetica Neue"', 'sans-serif'],
-        mono: ['"SF Mono"', 'ui-monospace', 'Menlo', 'monospace'],
+        display: ['Provicali', '"New York"', 'ui-serif', '"Iowan Old Style"', 'Georgia', 'serif'],
+        sans: ['Mondapick', '-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Helvetica Neue"', 'sans-serif'],
+        mono: ['Newake', '"SF Mono"', 'ui-monospace', 'Menlo', 'monospace'],
+      },
+      letterSpacing: {
+        tighter: '0.02em',
+        tight: '0.04em',
+        normal: '0.06em',
+        wide: '0.1em',
+        wider: '0.16em',
+        widest: '0.25em',
       },
       colors: {
         border: "hsl(var(--border))",

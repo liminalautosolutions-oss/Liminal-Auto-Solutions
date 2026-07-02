@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
-import { Navigation } from "@/components/autovanza/Navigation";
+import { Navigation } from "@/components/liminal/Navigation";
 import imgDetail from "@/assets/bento-dash.jpg";
 import imgWorkshop from "@/assets/work-dealership.jpg";
 import imgShowroom from "@/assets/work-workshop.jpg";
@@ -17,7 +17,7 @@ const videos = [
 
 const WorkPage = () => {
   useEffect(() => {
-    document.title = "AutoVanza — Work | Digital systems for automotive businesses";
+    document.title = "Liminal — Work | Digital systems for automotive businesses";
     window.scrollTo(0, 0);
   }, []);
 

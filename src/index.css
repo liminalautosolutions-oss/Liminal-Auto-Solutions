@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* AutoVanza — White Neumorphism Design System */
+/* Liminal — White Neumorphism Design System */
 
 @layer base {
   :root {
@@ -59,13 +59,103 @@
     --gradient-fade: linear-gradient(180deg, hsl(0 0% 95% / 0) 0%, hsl(0 0% 95% / 0.6) 50%, hsl(0 0% 95%) 100%);
     --gradient-radial-ember: radial-gradient(ellipse at center, hsl(30 80% 52% / 0.08), transparent 60%);
 
+    /* Glassmorphism & Divider defaults */
+    --glass-bg: hsl(0 0% 95% / 0.7);
+    --glass-border: hsl(0 0% 100% / 0.6);
+    --glass-strong-bg: hsl(0 0% 95% / 0.85);
+    --glass-strong-border: hsl(0 0% 100% / 0.5);
+    --glass-strong-shadow: 0 4px 12px hsl(0 0% 0% / 0.06);
+    --divider-color: hsl(0 0% 0% / 0.08);
+
     /* Motion */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
   }
+
+  .dark {
+    /* Core canvas — dark mode */
+    --background: 0 0% 10%;
+    --foreground: 0 0% 90%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 90%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 90%;
+
+    /* Primary — deep charcoal/whites reversed */
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 15%;
+    --primary-glow: 0 0% 80%;
+
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 30 80% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 90%;
+
+    /* Neumorphism tokens */
+    --ink: 0 0% 95%;
+    --ink-dim: 0 0% 70%;
+    --ink-faint: 0 0% 45%;
+    --surface: 0 0% 12%;
+    --surface-raised: 0 0% 15%;
+    --ember: 30 80% 52%;
+    --ember-glow: 35 90% 58%;
+
+    /* Neumorphism shadows - subtle dark mode neumorphism */
+    --neu-shadow: 8px 8px 16px hsl(0 0% 6%), -8px -8px 16px hsl(0 0% 18%);
+    --neu-shadow-sm: 4px 4px 8px hsl(0 0% 6%), -4px -4px 8px hsl(0 0% 18%);
+    --neu-shadow-inset: inset 4px 4px 8px hsl(0 0% 6%), inset -4px -4px 8px hsl(0 0% 18%);
+    --neu-shadow-lg: 12px 12px 24px hsl(0 0% 5%), -12px -12px 24px hsl(0 0% 20%);
+
+    /* Gradients */
+    --gradient-ember: linear-gradient(135deg, hsl(30 80% 52%), hsl(35 90% 58%));
+    --gradient-fade: linear-gradient(180deg, hsl(0 0% 12% / 0) 0%, hsl(0 0% 12% / 0.6) 50%, hsl(0 0% 12%) 100%);
+    --gradient-radial-ember: radial-gradient(ellipse at center, hsl(30 80% 52% / 0.08), transparent 60%);
+
+    /* Glassmorphism & Divider overrides */
+    --glass-bg: hsl(0 0% 12% / 0.7);
+    --glass-border: hsl(0 0% 20% / 0.6);
+    --glass-strong-bg: hsl(0 0% 12% / 0.85);
+    --glass-strong-border: hsl(0 0% 20% / 0.5);
+    --glass-strong-shadow: 0 4px 12px hsl(0 0% 0% / 0.2);
+    --divider-color: hsl(0 0% 100% / 0.08);
+  }
 }
 
 @layer base {
+  @font-face {
+    font-family: 'Provicali';
+    src: url('./assets/provicali/Provicali.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Newake';
+    src: url('./assets/newake/NewakeFont-Demo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Mondapick';
+    src: url('./assets/mondapick/Mondapick.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   * {
     @apply border-border;
   }
@@ -76,11 +166,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Mondapick", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-feature-settings: "ss01", "cv11", "cv02";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.011em;
+    letter-spacing: 0.03em;
   }
 
   ::selection {
@@ -91,20 +181,20 @@
 
 @layer components {
   .font-display {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    font-family: "Provicali", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
     font-weight: 700;
-    letter-spacing: -0.025em;
+    letter-spacing: 0.06em;
   }
 
   .font-sf {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
-    letter-spacing: -0.022em;
+    letter-spacing: 0.03em;
   }
 
   .font-mono-label {
-    font-family: "SF Mono", ui-monospace, "Menlo", "Monaco", monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
+    font-family: "Newake", "SF Mono", ui-monospace, "Menlo", "Monaco", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     font-weight: 500;
   }
@@ -135,19 +225,19 @@
   }
 
   .glass {
-    background: hsl(0 0% 95% / 0.7);
+    background: var(--glass-bg);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid hsl(0 0% 100% / 0.6);
+    border: 1px solid var(--glass-border);
     box-shadow: var(--neu-shadow-sm);
   }
 
   .glass-strong {
-    background: hsl(0 0% 95% / 0.85);
+    background: var(--glass-strong-bg);
     backdrop-filter: blur(28px) saturate(160%);
     -webkit-backdrop-filter: blur(28px) saturate(160%);
-    border-bottom: 1px solid hsl(0 0% 100% / 0.5);
-    box-shadow: 0 4px 12px hsl(0 0% 0% / 0.06);
+    border-bottom: 1px solid var(--glass-strong-border);
+    box-shadow: var(--glass-strong-shadow);
   }
 
   .text-ember-gradient {
@@ -159,7 +249,7 @@
 
   .hair-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, hsl(0 0% 0% / 0.08), transparent);
+    background: linear-gradient(90deg, transparent, var(--divider-color), transparent);
   }
 
   .link-underline {
