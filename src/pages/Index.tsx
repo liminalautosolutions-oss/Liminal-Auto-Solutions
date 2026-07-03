@@ -1,11 +1,9 @@
 import { Navigation } from "@/components/liminal/Navigation";
 import { Hero } from "@/components/liminal/Hero";
 import { ScrollReveal } from "@/components/liminal/ScrollReveal";
-import { Authority } from "@/components/liminal/Authority";
 import { Capabilities } from "@/components/liminal/Capabilities";
 import { Work } from "@/components/liminal/Work";
 import { Industry } from "@/components/liminal/Industry";
-import { About } from "@/components/liminal/About";
 import { Process } from "@/components/liminal/Process";
 import { Ecosystem } from "@/components/liminal/Ecosystem";
 import { Contact } from "@/components/liminal/Contact";
@@ -46,10 +44,8 @@ const Index = () => {
       <Hero />
       <ScrollReveal />
       <Industry />
-      <Authority />
       <Capabilities />
       <Work />
-      <About />
       <Process />
       <Ecosystem />
       <Contact />

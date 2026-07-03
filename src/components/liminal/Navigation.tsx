@@ -6,22 +6,33 @@ import { Sun, Moon } from "lucide-react";
 
 const nav = [
   { label: "Capabilities", href: "/#capabilities" },
-  { label: "Work", href: "/#work" },
-  { label: "About", href: "/#about" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
   { label: "Industry", href: "/#industry" },
-  { label: "Contact", href: "/#contact" },
 ];
 
 export const Navigation = () => {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [navbarTheme, setNavbarTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      const header = document.querySelector("header");
+      if (header && !header.contains(e.target as Node)) {
+        setIsExpanded(false);
+      }
+    };
+    document.addEventListener("click", handleDocumentClick);
+    return () => document.removeEventListener("click", handleDocumentClick);
   }, []);
 
   const toggleTheme = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
@@ -77,101 +88,188 @@ export const Navigation = () => {
   }, [isOpen]);
 
   const isDarkNavbar = navbarTheme === "dark";
+  const isExpandedState = !scrolled || isExpanded || isOpen;
+
+  const headerVariants = {
+    collapsed: {
+      left: "50%",
+      x: "-50%",
+      y: 0,
+      opacity: 1,
+      width: "72px",
+      height: "48px",
+      borderRadius: "0px 0px 14px 14px",
+      backgroundColor: mounted && resolvedTheme === "dark" ? "rgba(18, 18, 18, 0.9)" : "rgba(240, 240, 240, 0.9)",
+      borderColor: mounted && resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
+      borderBottomWidth: "1px",
+      borderLeftWidth: "1px",
+      borderRightWidth: "1px",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+    },
+    expanded: {
+      left: "50%",
+      x: "-50%",
+      y: 0,
+      opacity: 1,
+      width: "100%",
+      height: scrolled ? "64px" : "80px",
+      borderRadius: "0px",
+      backgroundColor: scrolled
+        ? isDarkNavbar
+          ? "rgba(10, 10, 10, 0.8)"
+          : "rgba(245, 245, 245, 0.8)"
+        : "rgba(0, 0, 0, 0)",
+      borderColor: scrolled
+        ? isDarkNavbar
+          ? "rgba(255, 255, 255, 0.05)"
+          : "rgba(0, 0, 0, 0.05)"
+        : "rgba(0, 0, 0, 0)",
+      borderBottomWidth: scrolled ? "1px" : "0px",
+      borderLeftWidth: "0px",
+      borderRightWidth: "0px",
+      boxShadow: scrolled ? "0 4px 6px -1px rgba(0, 0, 0, 0.05)" : "none",
+    }
+  };
 
   return (
     <>
       <motion.header
         initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? isDarkNavbar
-              ? "bg-black/70 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20"
-              : "bg-white/70 backdrop-blur-md border-b border-black/5 shadow-sm"
-            : "bg-transparent border-b border-transparent"
-        }`}
+        variants={headerVariants}
+        animate={isExpandedState ? "expanded" : "collapsed"}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        onMouseEnter={() => setIsExpanded(true)}
+        onMouseLeave={() => setIsExpanded(false)}
+        className="fixed top-0 z-50 border-solid border-transparent flex items-center justify-center overflow-hidden"
+        style={{ originY: 0 }}
       >
-        <div className={`container flex items-center justify-between transition-all duration-500 ${
-          scrolled ? "h-14 md:h-16" : "h-16 md:h-20"
-        }`}>
-          <Link to="/" className="flex items-center gap-2 group z-50 relative">
-            <span className="w-1.5 h-1.5 rounded-full bg-ember animate-ember-pulse" />
-            <span className={`font-display text-xl tracking-tight transition-colors duration-500 ${isDarkNavbar ? "text-white" : "text-black"}`}>
-              Liminal
-            </span>
-          </Link>
+        {/* Collapsed Trigger Icon */}
+        <motion.div
+          animate={{ 
+            opacity: isExpandedState ? 0 : 1,
+            pointerEvents: isExpandedState ? "none" : "auto",
+            scale: isExpandedState ? 0.8 : 1
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="absolute inset-0 flex items-center justify-center cursor-pointer"
+          onClick={() => setIsExpanded(true)}
+        >
+          {/* Custom Supercar Front Silhouette */}
+          <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+            {/* Windshield & Roof Outline */}
+            <path 
+              d="M7 11.5L9.5 8H14.5L17 11.5" 
+              stroke="currentColor" 
+              strokeWidth="1.2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+            />
+            {/* Chassis Outline */}
+            <path 
+              d="M3.5 14C3.5 13 4.2 11.5 6.5 11.5H17.5C19.8 11.5 20.5 13 20.5 14C20.5 14.5 20 16 19 16.5C18 17 16 17.5 12 17.5C8 17.5 6 17 5 16.5C4 16 3.5 14.5 3.5 14Z" 
+              stroke="currentColor" 
+              strokeWidth="1.2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+            />
+            {/* Headlights (Glowing Amber) */}
+            <circle cx="6" cy="14" r="1.2" className="fill-ember animate-ember-pulse" />
+            <circle cx="18" cy="14" r="1.2" className="fill-ember animate-ember-pulse" />
+          </svg>
+        </motion.div>
 
-          <nav className="hidden md:flex items-center gap-10">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`text-xs font-mono-label transition-colors duration-300 link-underline ${
-                  isDarkNavbar
-                    ? "text-zinc-400 hover:text-white"
-                    : "text-zinc-600 hover:text-black"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className={`p-2.5 rounded-full transition-all duration-300 flex items-center justify-center relative z-50 cursor-pointer active:scale-95 ${
-                isDarkNavbar
-                  ? "text-zinc-300 hover:text-ember bg-white/5 hover:bg-white/10 border border-white/10"
-                  : "text-zinc-700 hover:text-ember bg-black/5 hover:bg-black/10 border border-black/10"
-              }`}
-              aria-label="Toggle Theme"
-            >
-              {mounted && resolvedTheme === "dark" ? (
-                <Sun className="w-4 h-4" />
-              ) : (
-                <Moon className="w-4 h-4" />
-              )}
-            </button>
-
-            <Link
-              to="/#contact"
-              className={`hidden md:inline-flex text-xs font-mono-label px-4 py-2.5 transition-all duration-300 rounded-lg ${
-                isDarkNavbar
-                  ? "text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10"
-                  : "text-zinc-700 hover:text-black bg-black/5 hover:bg-black/10 border border-black/10"
-              }`}
-            >
-              Engage
+        {/* Full Navbar Contents */}
+        <motion.div
+          animate={{ 
+            opacity: isExpandedState ? 1 : 0,
+            pointerEvents: isExpandedState ? "auto" : "none",
+            y: isExpandedState ? 0 : -10
+          }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: isExpandedState ? 0.15 : 0 }}
+          className="w-full h-full flex items-center"
+        >
+          <div className="container flex items-center justify-between w-full">
+            <Link to="/" className="flex items-center gap-2 group z-50 relative" onClick={() => setIsExpanded(false)}>
+              <span className="w-1.5 h-1.5 rounded-full bg-ember animate-ember-pulse" />
+              <span className={`font-display text-xl tracking-tight transition-colors duration-500 ${isDarkNavbar ? "text-white" : "text-black"}`}>
+                Liminal
+              </span>
             </Link>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 z-50 relative focus:outline-none"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle Menu"
-            >
-              <div className="flex flex-col gap-1.5 w-6">
-                <span
-                  className={`h-px transition-transform duration-300 ${
-                    isDarkNavbar ? "bg-white" : "bg-black"
-                  } ${isOpen ? "rotate-45 translate-y-[7px]" : ""}`}
-                />
-                <span
-                  className={`h-px transition-opacity duration-300 ${
-                    isDarkNavbar ? "bg-white" : "bg-black"
-                  } ${isOpen ? "opacity-0" : ""}`}
-                />
-                <span
-                  className={`h-px transition-transform duration-300 ${
-                    isDarkNavbar ? "bg-white" : "bg-black"
-                  } ${isOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
-                />
-              </div>
-            </button>
+            <nav className="hidden md:flex items-center gap-10">
+              {nav.map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`text-xs font-mono-label transition-colors duration-300 link-underline ${
+                    isDarkNavbar
+                      ? "text-zinc-400 hover:text-white"
+                      : "text-zinc-900 hover:text-black"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={toggleTheme}
+                className={`p-2.5 rounded-full transition-all duration-300 flex items-center justify-center relative z-50 cursor-pointer active:scale-95 ${
+                  isDarkNavbar
+                    ? "text-zinc-300 hover:text-ember bg-white/5 hover:bg-white/10 border border-white/10"
+                    : "text-zinc-900 hover:text-ember bg-black/5 hover:bg-black/10 border border-black/15"
+                }`}
+                aria-label="Toggle Theme"
+              >
+                {mounted && resolvedTheme === "dark" ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+              </button>
+
+              <Link
+                to="/#contact"
+                className={`hidden md:inline-flex text-xs font-mono-label px-4 py-2.5 transition-all duration-300 rounded-lg ${
+                  isDarkNavbar
+                    ? "text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10"
+                    : "text-zinc-900 hover:text-black bg-black/5 hover:bg-black/10 border border-black/15"
+                }`}
+              >
+                Engage
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="md:hidden p-2 z-50 relative focus:outline-none"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(!isOpen);
+                }}
+                aria-label="Toggle Menu"
+              >
+                <div className="flex flex-col gap-1.5 w-6">
+                  <span
+                    className={`h-px transition-transform duration-300 ${
+                      isDarkNavbar ? "bg-white" : "bg-black"
+                    } ${isOpen ? "rotate-45 translate-y-[7px]" : ""}`}
+                  />
+                  <span
+                    className={`h-px transition-opacity duration-300 ${
+                      isDarkNavbar ? "bg-white" : "bg-black"
+                    } ${isOpen ? "opacity-0" : ""}`}
+                  />
+                  <span
+                    className={`h-px transition-transform duration-300 ${
+                      isDarkNavbar ? "bg-white" : "bg-black"
+                    } ${isOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
+                  />
+                </div>
+              </button>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </motion.header>
 
       {/* Mobile Menu Overlay */}
@@ -189,7 +287,10 @@ export const Navigation = () => {
                 <motion.div key={item.href} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 + 0.1, duration: 0.4 }}>
                   <Link
                     to={item.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsExpanded(false);
+                    }}
                     className="text-3xl font-display text-ink hover:text-ember transition-colors"
                   >
                     {item.label}
@@ -199,7 +300,10 @@ export const Navigation = () => {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: nav.length * 0.05 + 0.1, duration: 0.4 }}>
                 <Link
                   to="/#contact"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    setIsExpanded(false);
+                  }}
                   className="mt-8 inline-block text-sm font-mono-label text-ink neu px-8 py-4 hover:shadow-none transition-all duration-300"
                 >
                   Engage →

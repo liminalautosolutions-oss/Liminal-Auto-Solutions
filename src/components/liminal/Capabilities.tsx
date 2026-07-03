@@ -109,7 +109,7 @@ export const Capabilities = () => {
             {pillars.map((p, i) => (
               <div
                 key={p.n}
-                className="relative w-[75vw] sm:w-[55vw] md:w-[42vw] lg:w-[32vw] xl:w-[28vw] h-[48vh] md:h-[52vh] shrink-0 rounded-2xl overflow-hidden group neu flex flex-col justify-end p-6 md:p-10 hover:shadow-none transition-shadow duration-500 bg-surface/50 border border-border/40 backdrop-blur-sm"
+                className="relative w-[75vw] sm:w-[55vw] md:w-[42vw] lg:w-[32vw] xl:w-[28vw] h-[48vh] md:h-[52vh] shrink-0 rounded-2xl overflow-hidden group flex flex-col justify-end p-6 md:p-10 transition-shadow duration-500 bg-zinc-950/80 border border-white/5 shadow-2xl backdrop-blur-sm"
               >
                 {/* Background Image with Zoom */}
                 <div className="absolute inset-0 z-0 overflow-hidden rounded-[var(--radius)]">
@@ -117,28 +117,28 @@ export const Capabilities = () => {
                     src={p.img}
                     alt={p.title}
                     loading="lazy"
-                    className="w-full h-full object-cover opacity-35 dark:opacity-55 group-hover:opacity-60 dark:group-hover:opacity-75 group-hover:scale-105 transition-all duration-700 pointer-events-none"
+                    className="w-full h-full object-cover opacity-60 group-hover:opacity-75 group-hover:scale-105 transition-all duration-700 pointer-events-none"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent pointer-events-none" />
                 </div>
 
                 {/* Number & Line Indicator */}
                 <div className="relative z-10 flex items-center justify-between mb-8 pointer-events-none">
                   <span className="font-mono-label text-ember text-sm">{p.n}</span>
-                  <span className="w-8 h-px bg-ink-faint group-hover:w-16 group-hover:bg-ember transition-all duration-700" />
+                  <span className="w-8 h-px bg-white/10 group-hover:w-16 group-hover:bg-ember transition-all duration-700" />
                 </div>
 
                 {/* Card Content */}
                 <div className="relative z-10 flex flex-col pointer-events-none">
-                  <h3 className="font-display text-2xl md:text-3xl text-ink mb-3 group-hover:text-ember transition-colors duration-300">
+                  <h3 className="font-display text-2xl md:text-3xl text-white mb-3 group-hover:text-ember transition-colors duration-300">
                     {p.title}
                   </h3>
-                  <p className="text-ink-dim text-sm md:text-base leading-relaxed max-w-sm mb-6">
+                  <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-sm mb-6">
                     {p.body}
                   </p>
                   
                   {/* Explore pill button */}
-                  <div className="inline-flex self-start items-center gap-2 text-xs font-mono-label text-ink group-hover:text-ember transition-colors duration-300">
+                  <div className="inline-flex self-start items-center gap-2 text-xs font-mono-label text-zinc-300 group-hover:text-ember transition-colors duration-300">
                     <span>Explore module</span>
                     <span className="transform translate-x-0 group-hover:translate-x-1 transition-transform duration-300">→</span>
                   </div>
