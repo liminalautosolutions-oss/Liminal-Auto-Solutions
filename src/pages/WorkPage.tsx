@@ -5,17 +5,20 @@ import { Contact } from "@/components/liminal/Contact";
 import { Footer } from "@/components/liminal/Footer";
 import { ShortsFeed } from "@/components/liminal/ShortsFeed";
 
-// Generate 20 placeholder videos
-const videos = Array.from({ length: 20 }, (_, i) => ({
+const rawVideos = [
+  "https://res.cloudinary.com/qjyavfor/video/upload/v1784471178/IMG_8568_k5lihl.mp4",
+  "https://res.cloudinary.com/qjyavfor/video/upload/v1784471177/IMG_7936_f0brnl.mp4",
+  "https://res.cloudinary.com/qjyavfor/video/upload/v1784471186/IMG_8567_vmvar7.mp4",
+  "https://res.cloudinary.com/qjyavfor/video/upload/v1784471193/IMG_8593_mhqw23.mp4",
+  "https://res.cloudinary.com/qjyavfor/video/upload/v1784471193/IMG_8588_t00iws.mp4",
+  "https://res.cloudinary.com/qjyavfor/video/upload/v1784471202/IMG_8566_qcyizj.mp4",
+  "https://res.cloudinary.com/qjyavfor/video/upload/v1784471208/IMG_8569_e2plkx.mp4"
+];
+
+// Map over the URLs and inject Cloudinary optimization tags (q_auto,f_auto)
+const videos = rawVideos.map((url, i) => ({
   id: i + 1,
-  // Alternating between a few sample video URLs for variety
-  src: [
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-    "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
-  ][i % 5]
+  src: url.replace("/upload/", "/upload/q_auto,f_auto/")
 }));
 
 const WorkPage = () => {
