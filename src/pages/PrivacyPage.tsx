@@ -39,7 +39,7 @@ const PrivacyPage = () => {
 
           <h2 className="text-ember text-xl mb-4 mt-12">4. Contact Us</h2>
           <p>
-            If you have any questions about this Privacy Policy, please contact us at hello@liminal.in.
+            If you have any questions about this Privacy Policy, please contact us at liminalautosolutions@gmail.com.
           </p>
         </div>
       </section>

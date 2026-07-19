@@ -110,7 +110,7 @@ export const Contact = () => {
           {/* Right Column - Contact Details */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             {[
-              { label: "Email", value: "hello@liminal.in", href: "mailto:hello@liminal.in" },
+              { label: "Email", value: "liminalautosolutions@gmail.com", href: "mailto:liminalautosolutions@gmail.com" },
               { label: "WhatsApp", value: "+971 56 714 2180", href: "https://wa.me/971567142180" },
               { label: "Location", value: "United Kingdom", href: "#" },
             ].map((c, i) => (
