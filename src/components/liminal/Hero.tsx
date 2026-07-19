@@ -192,15 +192,7 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Mobile Scroll Indicator */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 md:hidden flex flex-col items-center text-white/50 animate-bounce pointer-events-none"
-        >
-          <ChevronDown className="w-6 h-6" />
-        </motion.div>
+
 
       </div>
     </section>
