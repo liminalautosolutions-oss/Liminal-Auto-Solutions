@@ -13,7 +13,7 @@ export const Ecosystem = () => {
           transition={{ duration: 0.8 }}
           className="font-mono-label text-ink-dim"
         >
-          07 / Ecosystem presence
+          05 / Ecosystem presence
         </motion.div>
       </div>
 

@@ -43,8 +43,8 @@ const Index = () => {
       <Navigation />
       <Hero />
       <ScrollReveal />
-      <Industry />
       <Capabilities />
+      <Industry />
       <Work />
       <Process />
       <Ecosystem />

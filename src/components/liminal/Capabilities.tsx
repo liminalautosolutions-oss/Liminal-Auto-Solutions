@@ -33,9 +33,9 @@ export const Capabilities = () => {
 
   useEffect(() => {
     const updateTranslateX = () => {
-      if (scrollRef.current) {
+      if (scrollRef.current && scrollRef.current.parentElement) {
         const scrollWidth = scrollRef.current.scrollWidth;
-        const visibleWidth = window.innerWidth;
+        const visibleWidth = scrollRef.current.parentElement.offsetWidth;
         setTranslateX(Math.max(0, scrollWidth - visibleWidth));
       }
     };
@@ -69,7 +69,7 @@ export const Capabilities = () => {
             transition={{ duration: 0.8 }}
             className="flex items-baseline justify-between mb-4"
           >
-            <span className="font-mono-label text-ink-dim">02 / Capabilities</span>
+            <span className="font-mono-label text-ink-dim">01 / Capabilities</span>
           </motion.div>
 
           <motion.h2
@@ -100,13 +100,14 @@ export const Capabilities = () => {
             ))}
           </motion.div>
 
-          {/* Cards Flex Container */}
-          <motion.div
-            ref={scrollRef}
-            style={{ x }}
-            className="flex gap-8 md:gap-16 px-[10vw] md:px-[20vw] relative z-10"
-          >
-            {pillars.map((p, i) => (
+          {/* Cards Flex Container aligned to container */}
+          <div className="container w-full relative z-10">
+            <motion.div
+              ref={scrollRef}
+              style={{ x }}
+              className="flex gap-8 md:gap-8 pb-8"
+            >
+              {pillars.map((p, i) => (
               <div
                 key={p.n}
                 className="relative w-[75vw] sm:w-[55vw] md:w-[42vw] lg:w-[32vw] xl:w-[28vw] h-[48vh] md:h-[52vh] shrink-0 rounded-2xl overflow-hidden group flex flex-col justify-end p-6 md:p-10 transition-shadow duration-500 bg-zinc-950/80 border border-white/5 shadow-2xl backdrop-blur-sm"
@@ -145,7 +146,8 @@ export const Capabilities = () => {
                 </div>
               </div>
             ))}
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

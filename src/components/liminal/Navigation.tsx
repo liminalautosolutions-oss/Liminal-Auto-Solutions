@@ -5,10 +5,9 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 const nav = [
-  { label: "Capabilities", href: "/#capabilities" },
+  { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
-  { label: "Industry", href: "/#industry" },
 ];
 
 export const Navigation = () => {
@@ -79,7 +78,7 @@ export const Navigation = () => {
         className="fixed top-0 left-0 w-full z-50 pointer-events-none pt-0"
       >
         <div
-          className={`mx-auto flex items-center justify-between pointer-events-auto transition-all duration-[700ms] ease-in-out ${
+          className={`relative mx-auto flex items-center justify-between pointer-events-auto transition-all duration-[700ms] ease-in-out ${
             scrolled
               ? `max-w-[850px] w-[95%] rounded-[100px] p-2 mt-6 ${isDarkNavbar ? 'bg-surface/95 border border-white/10 text-ink' : 'bg-ink/95 border border-black/10 text-surface'} shadow-[0_16px_40px_-12px_rgba(0,0,0,0.3)] backdrop-blur-xl`
               : "max-w-7xl w-full rounded-none px-6 py-6 mt-0 bg-transparent border-transparent"
@@ -113,7 +112,7 @@ export const Navigation = () => {
           </Link>
 
           {/* Nav Links */}
-          <nav className={`hidden md:flex items-center transition-all duration-[700ms] ease-in-out ${
+          <nav className={`absolute left-1/2 -translate-x-1/2 hidden md:flex items-center transition-all duration-[700ms] ease-in-out ${
             scrolled ? "gap-6 lg:gap-8" : "gap-8 lg:gap-12"
           }`}>
             {nav.map((item) => (

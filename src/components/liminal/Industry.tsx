@@ -41,7 +41,7 @@ export const Industry = () => {
           transition={{ duration: 0.8 }}
           className="flex items-baseline justify-between mb-6"
         >
-          <span className="font-mono-label text-ink-dim">04 / Industry</span>
+          <span className="font-mono-label text-ink-dim">02 / Industry</span>
         </motion.div>
 
         <div className="grid md:grid-cols-12 gap-12 items-end mb-20">

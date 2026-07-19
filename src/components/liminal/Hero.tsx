@@ -1,10 +1,10 @@
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-const FRAME_COUNT = 240;
+const FRAME_COUNT = 142;
 
 const currentFrame = (index: number) =>
-  `/images/herosection/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.jpg`;
+  `/images/herosection/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.png`;
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,9 +43,9 @@ export const Hero = () => {
     if (img && img.complete) {
       const hRatio = canvas.width / img.width;
       const vRatio = canvas.height / img.height;
-      const ratio = Math.max(hRatio, vRatio);
+      const ratio = Math.max(hRatio, vRatio); // Revert to Math.max to zoom and fill the screen
       const centerShift_x = (canvas.width - img.width * ratio) / 2;
-      const centerShift_y = (canvas.height - img.height * ratio) / 2;
+      const centerShift_y = canvas.height - img.height * ratio; // Align to bottom so tires aren't cropped
 
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(
@@ -120,10 +120,7 @@ export const Hero = () => {
           className="absolute inset-0 z-0 w-full h-full object-cover"
         />
 
-        {/* Top fade to bg */}
-        <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-background to-transparent z-10" />
-        {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-10" />
+        {/* Gradient fades removed as requested */}
 
         {/* Text Overlays */}
         <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">

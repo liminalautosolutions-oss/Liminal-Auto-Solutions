@@ -18,7 +18,7 @@ export const Process = () => {
           transition={{ duration: 0.8 }}
           className="mb-6 font-mono-label text-ink-dim"
         >
-          05 / Operating Model
+          04 / Operating Model
         </motion.div>
 
         <motion.h2

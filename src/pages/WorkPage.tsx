@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Navigation } from "@/components/liminal/Navigation";
+import { Contact } from "@/components/liminal/Contact";
+import { Footer } from "@/components/liminal/Footer";
+import { ShortsFeed } from "@/components/liminal/ShortsFeed";
 
 // Generate 20 placeholder videos
 const videos = Array.from({ length: 20 }, (_, i) => ({
@@ -16,6 +19,8 @@ const videos = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 const WorkPage = () => {
+  const [activeVideoIndex, setActiveVideoIndex] = useState<number | null>(null);
+
   useEffect(() => {
     document.title = "Liminal — Work | Digital systems for automotive businesses";
     window.scrollTo(0, 0);
@@ -53,7 +58,7 @@ const WorkPage = () => {
             </svg>
 
             <h1 className="font-display text-[clamp(3rem,8vw,8rem)] leading-[0.8] tracking-tight text-ink text-center">
-              REELS/SHORT
+              MOTION
             </h1>
 
             {/* Right curved arrow */}
@@ -67,9 +72,9 @@ const WorkPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-mono-label text-ember text-center text-sm md:text-base tracking-[0.2em]"
+            className="font-mono-label text-ember text-center text-sm md:text-base tracking-[0.2em] uppercase"
           >
-            Promotes & Motions graphics
+            Short-form automotive film
           </motion.p>
         </div>
 
@@ -83,6 +88,7 @@ const WorkPage = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: (i % 5) * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="group relative neu overflow-hidden aspect-[9/16] cursor-pointer bg-surface/50 border border-white/10"
+              onClick={() => setActiveVideoIndex(i)}
             >
               {/* Video Element */}
               <video
@@ -114,6 +120,16 @@ const WorkPage = () => {
           ))}
         </div>
       </section>
+      <Contact />
+      <Footer />
+
+      {activeVideoIndex !== null && (
+        <ShortsFeed
+          videos={videos}
+          startIndex={activeVideoIndex}
+          onClose={() => setActiveVideoIndex(null)}
+        />
+      )}
     </main>
   );
 };

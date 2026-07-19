@@ -3,6 +3,7 @@ import { Navigation } from "@/components/liminal/Navigation";
 import { Footer } from "@/components/liminal/Footer";
 import { About } from "@/components/liminal/About";
 import { Authority } from "@/components/liminal/Authority";
+import { Contact } from "@/components/liminal/Contact";
 
 const AboutPage = () => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const AboutPage = () => {
       <Navigation />
       <About />
       <Authority />
+      <Contact />
       <Footer />
     </main>
   );

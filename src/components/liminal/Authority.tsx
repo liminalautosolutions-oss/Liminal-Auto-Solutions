@@ -18,7 +18,7 @@ export const Authority = () => {
           transition={{ duration: 0.8 }}
           className="flex items-baseline justify-between mb-16 md:mb-24"
         >
-          <span className="font-mono-label text-ink-dim">01 / Authority</span>
+          <span className="font-mono-label text-ink-dim">07 / Authority</span>
           <span className="font-mono-label text-ink-faint hidden md:block">
             Credibility, observed — not claimed
           </span>
