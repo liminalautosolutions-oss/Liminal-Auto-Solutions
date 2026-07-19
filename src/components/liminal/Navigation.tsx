@@ -160,7 +160,7 @@ export const Navigation = () => {
 
             {/* Mobile Menu Toggle */}
             <button
-              className={`md:hidden relative flex flex-col justify-center items-center shrink-0 transition-all duration-[700ms] ease-in-out ${
+              className={`md:hidden relative flex flex-col justify-center items-center gap-1.5 shrink-0 transition-all duration-[700ms] ease-in-out ${
                 scrolled 
                   ? `w-12 h-12 rounded-full ${isDarkNavbar ? 'bg-ink' : 'bg-surface'}` 
                   : 'w-12 h-12 bg-transparent'

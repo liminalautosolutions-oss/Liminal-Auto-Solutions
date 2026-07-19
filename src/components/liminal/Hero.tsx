@@ -139,21 +139,28 @@ export const Hero = () => {
           />
         </div>
 
-        {/* MOBILE EXPERIENCE: Typography & Gradient */}
+        {/* MOBILE EXPERIENCE: Classy Image + Text */}
         <div className="block md:hidden absolute inset-0 z-0 w-full h-full overflow-hidden bg-[#050505]">
-          {/* Subtle Ember Radial Gradient */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-[radial-gradient(circle_at_center,rgba(255,87,34,0.15)_0%,transparent_60%)]" />
+          <div 
+            className="w-full h-full object-cover"
+            style={{
+              backgroundImage: `url('/images/PPFREFERENCE.jpg')`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}
+          />
+          {/* Gradient Overlay for Text Legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
           
-          <div className="absolute inset-0 flex flex-col justify-center items-center px-6">
+          <div className="absolute inset-0 flex flex-col justify-end items-center px-6 pb-[20vh]">
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center text-center mt-[-10vh]"
+              className="flex flex-col items-center text-center"
             >
-              <h1 className="font-display text-5xl sm:text-6xl text-white tracking-widest uppercase leading-[1.1]">LIMINAL</h1>
-              <h1 className="font-display text-5xl sm:text-6xl text-white tracking-widest uppercase leading-[1.1]">AUTO</h1>
-              <h1 className="font-display text-5xl sm:text-6xl text-ember tracking-widest uppercase leading-[1.1]">SOLUTIONS</h1>
+              <h1 className="font-display text-4xl text-white tracking-widest uppercase leading-[1.1]">LIMINAL</h1>
+              <h1 className="font-display text-2xl text-white/80 tracking-widest uppercase leading-[1.1] mt-2">AUTO SOLUTIONS</h1>
             </motion.div>
 
             <motion.a 
@@ -161,7 +168,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-16 px-8 py-4 glass-strong text-white font-mono-label text-xs uppercase tracking-widest rounded-full"
+              className="mt-8 px-8 py-4 glass-strong text-white font-mono-label text-xs uppercase tracking-widest rounded-full"
             >
               Discover Services
             </motion.a>
