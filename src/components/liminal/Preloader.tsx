@@ -7,23 +7,38 @@ export const Preloader = () => {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    const startTime = Date.now();
+    let isWindowLoaded = document.readyState === "complete";
+
+    const handleLoad = () => {
+      isWindowLoaded = true;
+    };
+    window.addEventListener("load", handleLoad);
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        // If window is loaded AND minimum time has passed, finish the loader
+        if (isWindowLoaded && Date.now() - startTime > 1200) {
           clearInterval(interval);
           setTimeout(() => {
             document.body.style.overflow = "unset";
             setIsLoading(false);
-          }, 600);
+          }, 800); // Wait at 220km/h for a moment before sliding up
           return 100;
         }
+        
+        // If not loaded yet, hang at 99%
+        if (prev >= 99) return 99;
+        
         // Rapid acceleration feel
         return prev + Math.floor(Math.random() * 8) + 2;
       });
     }, 60);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("load", handleLoad);
+    };
   }, []);
 
   // SVG Calculations
@@ -150,8 +165,11 @@ export const Preloader = () => {
                 initial={{ rotate: 135 }}
                 animate={{ rotate: 135 + (progress / 100) * 270 }}
                 transition={{ duration: 0.1, ease: "linear" }}
-                style={{ transformOrigin: "170px 170px" }}
+                style={{ transformOrigin: "center" }}
               >
+                {/* Invisible bounding box to force correct SVG transform origin */}
+                <rect x="0" y="0" width="340" height="340" fill="none" />
+                
                 {/* Needle Drop Shadow */}
                 <polygon points="170,166 260,169 260,171 170,174 155,170" fill="rgba(0,0,0,0.5)" transform="translate(2, 4)" />
                 {/* Needle Body (Orange) */}

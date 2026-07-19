@@ -23,6 +23,9 @@ const videos = rawVideos.map((url, i) => ({
 
 const WorkPage = () => {
   const [activeVideoIndex, setActiveVideoIndex] = useState<number | null>(null);
+  const [loadedCount, setLoadedCount] = useState(0);
+
+  const isVideosLoaded = loadedCount >= videos.length;
 
   useEffect(() => {
     document.title = "Liminal — Work | Digital systems for automotive businesses";
@@ -82,45 +85,57 @@ const WorkPage = () => {
         </div>
 
         {/* Video Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-          {videos.map((v, i) => (
-            <motion.div
-              key={v.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, delay: (i % 5) * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative neu overflow-hidden aspect-[9/16] cursor-pointer bg-surface/50 border border-white/10"
-              onClick={() => setActiveVideoIndex(i)}
-            >
-              {/* Video Element */}
-              <video
-                src={v.src}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.6s] group-hover:scale-105"
-              />
+        <div className="relative">
+          {/* Skeleton Grid (visible while loading) */}
+          {!isVideosLoaded && (
+            <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 z-20">
+              {Array.from({ length: videos.length }).map((_, i) => (
+                <div key={`skeleton-${i}`} className="aspect-[9/16] bg-white/5 animate-pulse border border-white/10" />
+              ))}
+            </div>
+          )}
 
-              {/* Overlay on hover */}
-              <div className="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Actual Videos */}
+          <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 ${!isVideosLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-1000`}>
+            {videos.map((v, i) => (
+              <motion.div
+                key={v.id}
+                initial={{ opacity: 0, y: 40 }}
+                animate={isVideosLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{ duration: 0.8, delay: (i % 5) * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative neu overflow-hidden aspect-[9/16] cursor-pointer bg-surface/50 border border-white/10"
+                onClick={() => setActiveVideoIndex(i)}
+              >
+                {/* Video Element */}
+                <video
+                  src={v.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  onLoadedData={() => setLoadedCount(prev => prev + 1)}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.6s] group-hover:scale-105"
+                />
 
-              {/* Play icon overlay */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <div className="w-12 h-12 rounded-full glass flex items-center justify-center border border-white/20 pl-1 scale-90 group-hover:scale-100 transition-transform duration-500">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 5v14l11-7L8 5z" fill="currentColor" className="text-ink" />
-                  </svg>
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Play icon overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="w-12 h-12 rounded-full glass flex items-center justify-center border border-white/20 pl-1 scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5v14l11-7L8 5z" fill="currentColor" className="text-ink" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
 
-              {/* Tag/Label (Optional, hidden by default but useful for future) */}
-              <div className="absolute top-4 right-4 font-mono-label text-[10px] text-ink-dim glass px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                0{i + 1}
-              </div>
-            </motion.div>
-          ))}
+                {/* Tag/Label */}
+                <div className="absolute top-4 right-4 font-mono-label text-[10px] text-ink-dim glass px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
+                  0{i + 1}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
       <Contact />
