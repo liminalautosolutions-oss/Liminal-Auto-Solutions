@@ -118,6 +118,10 @@ export const Hero = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, [images, scrollYProgress, isDesktop]);
 
+  // Text 1: LIMINAL
+  const t1Opacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const t1Y = useTransform(scrollYProgress, [0, 0.3], ["0%", "-100%"]);
+
   return (
     <section 
       ref={containerRef} 
@@ -148,15 +152,20 @@ export const Hero = () => {
         </div>
 
         {/* Text Overlays (Shared) */}
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-start pt-[12vh] md:pt-[10vh] pointer-events-none">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-[clamp(2.5rem,11vw,13rem)] leading-none tracking-normal text-white mix-blend-difference select-none drop-shadow-lg md:text-[#1e1e1e] md:drop-shadow-none md:mix-blend-difference"
+        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+          <motion.div
+            style={{ opacity: t1Opacity, y: t1Y }}
+            className="absolute inset-0 flex flex-col items-center justify-start pt-[12vh] md:pt-[10vh]"
           >
-            LIMINAL
-          </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-[clamp(2.5rem,11vw,13rem)] leading-none tracking-normal text-white mix-blend-difference select-none drop-shadow-lg md:text-[#1e1e1e] md:drop-shadow-none md:mix-blend-difference"
+            >
+              LIMINAL
+            </motion.h1>
+          </motion.div>
         </div>
 
         {/* Mobile Scroll Indicator */}
