@@ -139,29 +139,46 @@ export const Hero = () => {
           />
         </div>
 
-        {/* MOBILE EXPERIENCE: Static Image with Breathing Zoom */}
-        <div className="block md:hidden absolute inset-0 z-0 w-full h-full overflow-hidden bg-black">
-          <div 
-            className="w-full h-full object-cover animate-breathing-zoom"
-            style={{
-              backgroundImage: `url('/images/herosection/ezgif-frame-142.png')`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover'
-            }}
-          />
+        {/* MOBILE EXPERIENCE: Typography & Gradient */}
+        <div className="block md:hidden absolute inset-0 z-0 w-full h-full overflow-hidden bg-[#050505]">
+          {/* Subtle Ember Radial Gradient */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] bg-[radial-gradient(circle_at_center,rgba(255,87,34,0.15)_0%,transparent_60%)]" />
+          
+          <div className="absolute inset-0 flex flex-col justify-center items-center px-6">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center text-center mt-[-10vh]"
+            >
+              <h1 className="font-display text-5xl sm:text-6xl text-white tracking-widest uppercase leading-[1.1]">LIMINAL</h1>
+              <h1 className="font-display text-5xl sm:text-6xl text-white tracking-widest uppercase leading-[1.1]">AUTO</h1>
+              <h1 className="font-display text-5xl sm:text-6xl text-ember tracking-widest uppercase leading-[1.1]">SOLUTIONS</h1>
+            </motion.div>
+
+            <motion.a 
+              href="#contact"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-16 px-8 py-4 glass-strong text-white font-mono-label text-xs uppercase tracking-widest rounded-full"
+            >
+              Discover Services
+            </motion.a>
+          </div>
         </div>
 
-        {/* Text Overlays (Shared) */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+        {/* Text Overlays (Desktop Only) */}
+        <div className="hidden md:flex absolute inset-0 z-20 items-center justify-center pointer-events-none">
           <motion.div
             style={{ opacity: t1Opacity, y: t1Y }}
-            className="absolute inset-0 flex flex-col items-center justify-start pt-[12vh] md:pt-[10vh]"
+            className="absolute inset-0 flex flex-col items-center justify-start pt-[10vh]"
           >
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(2.5rem,11vw,13rem)] leading-none tracking-normal text-white mix-blend-difference select-none drop-shadow-lg md:text-[#1e1e1e] md:drop-shadow-none md:mix-blend-difference"
+              className="font-display text-[clamp(2.5rem,11vw,13rem)] leading-none tracking-normal text-[#1e1e1e] mix-blend-difference select-none drop-shadow-none"
             >
               LIMINAL
             </motion.h1>
@@ -173,9 +190,9 @@ export const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 md:hidden flex flex-col items-center text-white animate-bounce pointer-events-none"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 md:hidden flex flex-col items-center text-white/50 animate-bounce pointer-events-none"
         >
-          <ChevronDown className="w-8 h-8" />
+          <ChevronDown className="w-6 h-6" />
         </motion.div>
 
       </div>
