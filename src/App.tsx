@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound.tsx";
 import WorkPage from "./pages/WorkPage.tsx";
 import AboutPage from "./pages/AboutPage.tsx";
 import PrivacyPage from "./pages/PrivacyPage.tsx";
+import { Preloader } from "./components/liminal/Preloader.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <Preloader />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
