@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -109,11 +110,26 @@ export const Hero = () => {
 
   return (
     <section id="top" className="relative w-full h-[100dvh] bg-background overflow-hidden">
-      {/* Canvas for Image Sequence */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-0 w-full h-full object-cover"
-      />
+      
+      {/* DESKTOP EXPERIENCE: Canvas for Image Sequence */}
+      <div className="hidden md:block absolute inset-0 z-0 w-full h-full">
+        <canvas
+          ref={canvasRef}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      {/* MOBILE EXPERIENCE: Static Image with Breathing Zoom */}
+      <div className="block md:hidden absolute inset-0 z-0 w-full h-full overflow-hidden bg-black">
+        <div 
+          className="w-full h-full object-cover animate-breathing-zoom"
+          style={{
+            backgroundImage: `url('/images/herosection/ezgif-frame-142.png')`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }}
+        />
+      </div>
 
       {/* Text Overlays */}
       <div className="absolute inset-0 z-20 flex flex-col items-center justify-start pt-[12vh] md:pt-[10vh] pointer-events-none">
@@ -126,6 +142,16 @@ export const Hero = () => {
           LIMINAL
         </motion.h1>
       </div>
+
+      {/* Mobile Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 md:hidden flex flex-col items-center text-white animate-bounce pointer-events-none"
+      >
+        <ChevronDown className="w-8 h-8" />
+      </motion.div>
     </section>
   );
 };

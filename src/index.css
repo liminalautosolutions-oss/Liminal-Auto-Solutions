@@ -286,3 +286,13 @@
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.9; }
 }
+
+@keyframes breathing-zoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.animate-breathing-zoom {
+  animation: breathing-zoom 20s ease-in-out infinite;
+}
