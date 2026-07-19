@@ -9,25 +9,33 @@ export const Preloader = () => {
     document.body.style.overflow = "hidden";
     const startTime = Date.now();
     
-    // Actually preload the 142 frames
-    const FRAME_COUNT = 142;
+    // We only need to preload the critical first-paint image to ensure a smooth reveal.
+    // The rest of the 142 frames are asynchronously loaded by Hero.tsx so we don't block the site.
+    const isMobile = window.innerWidth < 768;
+    const criticalImages = isMobile 
+      ? ["/images/PPFREFERENCE.jpg"] 
+      : ["/images/herosection/ezgif-frame-001.png"];
+      
     let loadedCount = 0;
-
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    criticalImages.forEach(src => {
       const img = new Image();
-      img.src = `/images/herosection/ezgif-frame-${(i + 1).toString().padStart(3, "0")}.png`;
+      img.src = src;
       const onLoad = () => { loadedCount++; };
       img.onload = onLoad;
-      img.onerror = onLoad; // Count errors too so it doesn't hang infinitely
-    }
+      img.onerror = onLoad;
+    });
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        // Calculate real percentage of frames loaded
-        const targetProgress = (loadedCount / FRAME_COUNT) * 100;
+        const timeElapsed = Date.now() - startTime;
+        
+        // Progress based on a quick 1.2s timer instead of 142 network requests
+        const timeProgress = Math.min((timeElapsed / 1200) * 100, 100);
+        const criticalLoaded = loadedCount === criticalImages.length;
+        const timeOut = timeElapsed > 4000; // Hard max 4 seconds wait
 
-        // If ALL frames are loaded AND minimum time has passed, finish the loader
-        if (loadedCount === FRAME_COUNT && Date.now() - startTime > 1200) {
+        // Finish loader if timer is up and critical image loaded, OR if max timeout hit
+        if ((timeProgress >= 100 && criticalLoaded) || timeOut) {
           clearInterval(interval);
           setTimeout(() => {
             document.body.style.overflow = "unset";
@@ -36,12 +44,11 @@ export const Preloader = () => {
           return 100;
         }
         
-        // Rapid acceleration but capped by actual network download progress
-        // This ensures the needle visually shows the REAL loading speed!
-        const simulatedStep = prev + Math.floor(Math.random() * 5) + 2;
-        return Math.min(simulatedStep, targetProgress, 99);
+        // Rapid acceleration simulating the needle moving
+        const simulatedStep = prev + Math.floor(Math.random() * 8) + 4;
+        return Math.min(simulatedStep, timeProgress, 99);
       });
-    }, 60);
+    }, 40);
 
     return () => {
       clearInterval(interval);

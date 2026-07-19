@@ -17,17 +17,19 @@ export const Ecosystem = () => {
         </motion.div>
       </div>
 
-      <div className="relative w-full overflow-hidden">
-        <div className="marquee-track flex gap-16 whitespace-nowrap">
-          {[...row, ...row, ...row].map((w, i) => (
-            <span
-              key={i}
-              className="font-display text-5xl md:text-8xl text-ink-faint hover:text-ember transition-colors duration-500"
-            >
-              {w} <span className="text-ember">·</span>
-            </span>
-          ))}
-        </div>
+      <div className="relative w-full flex overflow-hidden">
+        {[...Array(4)].map((_, idx) => (
+          <div key={idx} className="marquee-track flex shrink-0 gap-16 pr-16 whitespace-nowrap" aria-hidden={idx !== 0}>
+            {row.map((w, i) => (
+              <span
+                key={i}
+                className="font-display text-xl sm:text-2xl md:text-8xl text-ink-faint hover:text-ember transition-colors duration-500"
+              >
+                {w} <span className="text-ember">·</span>
+              </span>
+            ))}
+          </div>
+        ))}
       </div>
 
       <div className="container mt-10 flex justify-between text-xs font-mono-label text-ink-faint">

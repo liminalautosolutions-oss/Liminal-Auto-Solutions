@@ -273,13 +273,18 @@
   }
 
   .marquee-track {
-    animation: marquee 20s linear infinite;
+    animation: marquee 12s linear infinite;
+  }
+  @media (min-width: 768px) {
+    .marquee-track {
+      animation: marquee 20s linear infinite;
+    }
   }
 }
 
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to { transform: translateX(-100%); }
 }
 
 @keyframes ember-pulse {
