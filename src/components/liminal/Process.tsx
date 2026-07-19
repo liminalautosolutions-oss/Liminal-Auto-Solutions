@@ -9,7 +9,7 @@ const steps = [
 
 export const Process = () => {
   return (
-    <section className="relative py-20 md:py-16 bg-surface-raised">
+    <section className="relative py-12 md:py-20 bg-surface-raised">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -26,7 +26,7 @@ export const Process = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight max-w-4xl mb-20 md:mb-28 text-ink"
+          className="font-display text-[clamp(2.5rem,7vw,6rem)] leading-[0.95] tracking-tight max-w-4xl mb-12 md:mb-28 text-ink"
         >
           A four-stage <span className="text-ember">system</span>.
         </motion.h2>
@@ -39,7 +39,7 @@ export const Process = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.9, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="neu p-8 md:p-10 relative min-h-[22rem] flex flex-col"
+              className="neu p-6 md:p-10 relative min-h-[18rem] md:min-h-[22rem] flex flex-col"
             >
               <div className="font-mono-label text-ember mb-8">{s.n}</div>
               <h3 className="font-display text-4xl md:text-5xl text-ink mb-6 leading-none">{s.title}</h3>

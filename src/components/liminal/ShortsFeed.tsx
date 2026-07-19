@@ -139,10 +139,10 @@ export const ShortsFeed = ({ videos, startIndex, onClose }: ShortsFeedProps) => 
           {videos.map((v, i) => (
             <div 
               key={v.id} 
-              className="h-screen w-full snap-start snap-always relative flex justify-center items-center bg-transparent"
+              className="h-[100dvh] w-full snap-start snap-always relative flex justify-center items-center bg-transparent"
             >
               {/* Phone-like Container for Desktop */}
-              <div className="relative w-full h-full md:w-auto md:aspect-[9/16] md:h-[95vh] md:rounded-2xl overflow-hidden bg-zinc-900 border-white/10 md:border">
+              <div className="relative w-full h-full md:w-auto md:aspect-[9/16] md:h-[95dvh] md:rounded-2xl overflow-hidden bg-zinc-900 border-white/10 md:border">
                 <video
                   src={v.src}
                   loop

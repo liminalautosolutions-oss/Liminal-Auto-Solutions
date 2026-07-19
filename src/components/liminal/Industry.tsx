@@ -32,7 +32,7 @@ export const Industry = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   return (
-    <section id="industry" className="relative py-20 md:py-16 bg-background">
+    <section id="industry" className="relative py-12 md:py-20 bg-background">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -44,7 +44,7 @@ export const Industry = () => {
           <span className="font-mono-label text-ink-dim">02 / Industry</span>
         </motion.div>
 
-        <div className="grid md:grid-cols-12 gap-12 items-end mb-20">
+        <div className="grid md:grid-cols-12 gap-12 items-end mb-16 md:mb-20">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -79,12 +79,12 @@ export const Industry = () => {
                 onClick={() => setExpandedIndex(isExpanded ? null : i)}
                 className="group border-b border-border/50 last:border-b-0 flex flex-col cursor-pointer transition-colors duration-500"
               >
-                <div className={`py-8 md:py-10 px-6 md:px-10 flex items-center justify-between transition-colors duration-500 ${isExpanded ? "bg-surface-raised" : "hover:bg-surface-raised/50"}`}>
-                  <div className="flex items-center gap-8 md:gap-16">
+                <div className={`py-6 md:py-10 px-4 md:px-10 flex items-center justify-between transition-colors duration-500 ${isExpanded ? "bg-surface-raised" : "hover:bg-surface-raised/50"}`}>
+                  <div className="flex items-center gap-4 md:gap-16">
                     <span className="font-mono-label text-ink-faint">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className={`font-mono text-3xl md:text-6xl transition-colors duration-500 ${isExpanded ? "text-ember" : "text-ink group-hover:text-ink/80"}`}>
+                    <span className={`font-mono text-xl md:text-6xl transition-colors duration-500 ${isExpanded ? "text-ember" : "text-ink group-hover:text-ink/80"}`}>
                       {seg.title}
                     </span>
                   </div>

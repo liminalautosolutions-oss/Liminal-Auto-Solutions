@@ -105,12 +105,12 @@ export const Capabilities = () => {
             <motion.div
               ref={scrollRef}
               style={{ x }}
-              className="flex gap-8 md:gap-8 pb-8"
+              className="flex gap-4 sm:gap-6 md:gap-8 pb-8"
             >
               {pillars.map((p, i) => (
               <div
                 key={p.n}
-                className="relative w-[75vw] sm:w-[55vw] md:w-[42vw] lg:w-[32vw] xl:w-[28vw] h-[48vh] md:h-[52vh] shrink-0 rounded-2xl overflow-hidden group flex flex-col justify-end p-6 md:p-10 transition-shadow duration-500 bg-zinc-950/80 border border-white/5 shadow-2xl backdrop-blur-sm"
+                className="relative w-[85vw] sm:w-[65vw] md:w-[42vw] lg:w-[32vw] xl:w-[28vw] h-[48vh] md:h-[52vh] shrink-0 rounded-2xl overflow-hidden group flex flex-col justify-end p-6 md:p-10 transition-shadow duration-500 bg-zinc-950/80 border border-white/5 shadow-2xl backdrop-blur-sm"
               >
                 {/* Background Image with Zoom */}
                 <div className="absolute inset-0 z-0 overflow-hidden rounded-[var(--radius)]">

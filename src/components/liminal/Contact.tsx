@@ -28,25 +28,28 @@ export const Contact = () => {
     }
   };
   return (
-    <section id="contact" className="relative py-20 md:py-56 overflow-hidden bg-background">
-      <div className="container relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="font-mono-label text-ink-dim mb-8"
-        >
-          08 / Engage
-        </motion.div>
+    <section id="contact" className="relative py-16 md:py-32 overflow-hidden bg-background">
+      <div className="container relative z-10">
+        
+        {/* Section Header */}
+        <div className="flex flex-col items-start mb-16 md:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex items-baseline justify-between mb-4 md:mb-6"
+          >
+            <span className="font-mono-label text-ink-dim">05 / Contact</span>
+          </motion.div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-[clamp(3rem,10vw,10rem)] leading-[0.9] tracking-tighter max-w-5xl mb-16 md:mb-24 text-ink"
-        >
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-[clamp(2.5rem,10vw,10rem)] leading-[0.9] tracking-tighter max-w-5xl text-ink"
+          >
           Let's <span className="text-ember-gradient">build</span> something that lasts.
         </motion.h2>
 

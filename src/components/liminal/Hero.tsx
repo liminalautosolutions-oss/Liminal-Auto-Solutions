@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const FRAME_COUNT = 142;
@@ -7,19 +7,13 @@ const currentFrame = (index: number) =>
   `/images/herosection/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.png`;
 
 export const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
   // Preload images
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
-
     const preloadImages = async () => {
       for (let i = 0; i < FRAME_COUNT; i++) {
         const img = new Image();
@@ -28,7 +22,6 @@ export const Hero = () => {
       }
       setImages(loadedImages);
     };
-
     preloadImages();
   }, []);
 
@@ -43,9 +36,9 @@ export const Hero = () => {
     if (img && img.complete) {
       const hRatio = canvas.width / img.width;
       const vRatio = canvas.height / img.height;
-      const ratio = Math.max(hRatio, vRatio); // Revert to Math.max to zoom and fill the screen
+      const ratio = Math.max(hRatio, vRatio);
       const centerShift_x = (canvas.width - img.width * ratio) / 2;
-      const centerShift_y = canvas.height - img.height * ratio; // Align to bottom so tires aren't cropped
+      const centerShift_y = canvas.height - img.height * ratio;
 
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(
@@ -62,87 +55,76 @@ export const Hero = () => {
     }
   };
 
-  // Update canvas on scroll
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const frameIndex = Math.min(
-      FRAME_COUNT - 1,
-      Math.floor(latest * FRAME_COUNT)
-    );
-    // Request animation frame for smooth rendering
-    requestAnimationFrame(() => renderFrame(frameIndex));
-  });
-
-  // Handle Resize and initial draw
+  // Handle Resize
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
       if (canvas) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        // Draw last frame if done, else first frame
+        renderFrame(isAnimationComplete ? FRAME_COUNT - 1 : 0);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [images, isAnimationComplete]);
 
-        const currentProgress = scrollYProgress.get();
-        const frameIndex = Math.min(
-          FRAME_COUNT - 1,
-          Math.floor(currentProgress * FRAME_COUNT)
-        );
-        renderFrame(frameIndex);
+  // Auto-play animation once images start loading
+  useEffect(() => {
+    if (images.length === 0) return;
+    
+    let startTime: number | null = null;
+    let animationFrameId: number;
+    const DURATION = 3500; // 3.5 seconds to play
+
+    const playAnimation = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / DURATION, 1);
+      
+      // Easing function for smooth stop
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(easeOutQuart * FRAME_COUNT));
+      
+      renderFrame(frameIndex);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(playAnimation);
+      } else {
+        setIsAnimationComplete(true);
       }
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+    // Wait a brief moment to ensure at least first few frames are loaded
+    const timeoutId = setTimeout(() => {
+      animationFrameId = requestAnimationFrame(playAnimation);
+    }, 100);
 
-    // Attempt initial draw if first image loads
-    if (images.length > 0) {
-      const firstImg = images[0];
-      if (firstImg.complete) {
-        handleResize();
-      } else {
-        firstImg.onload = () => handleResize();
-      }
-    }
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [images, scrollYProgress]);
-
-  // Text 1: LIMINAL
-  const t1Opacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
-  const t1Y = useTransform(scrollYProgress, [0, 0.3], ["0%", "-100%"]);
+    return () => {
+      clearTimeout(timeoutId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, [images]);
 
   return (
-    <section ref={containerRef} id="top" className="relative w-full bg-background" style={{ height: "200vh" }}>
-      {/* Sticky Container for Animation */}
-      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden">
+    <section id="top" className="relative w-full h-[100dvh] bg-background overflow-hidden">
+      {/* Canvas for Image Sequence */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-0 w-full h-full object-cover"
+      />
 
-        {/* Canvas for Image Sequence */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 z-0 w-full h-full object-cover"
-        />
-
-        {/* Gradient fades removed as requested */}
-
-        {/* Text Overlays */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-
-          {/* Feature 1 */}
-          <motion.div
-            style={{ opacity: t1Opacity, y: t1Y }}
-            className="absolute inset-0 flex flex-col items-center justify-start pt-[12vh] md:pt-[10vh]"
-          >
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-[clamp(2rem,11vw,13rem)] leading-none tracking-normal text-[#1e1e1e] select-none"
-            >
-              LIMINAL
-            </motion.h1>
-          </motion.div>
-
-        </div>
-
-
+      {/* Text Overlays */}
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-start pt-[12vh] md:pt-[10vh] pointer-events-none">
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-[clamp(2.5rem,11vw,13rem)] leading-none tracking-normal text-[#1e1e1e] select-none mix-blend-difference"
+        >
+          LIMINAL
+        </motion.h1>
       </div>
     </section>
   );

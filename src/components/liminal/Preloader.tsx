@@ -74,7 +74,7 @@ export const Preloader = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,87,34,0.05)_0%,transparent_50%)]" />
 
           {/* Speedometer Container */}
-          <div className="relative w-[340px] h-[340px] flex items-center justify-center">
+          <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] flex items-center justify-center">
             
             {/* SVG Speedometer */}
             <svg 
