@@ -88,7 +88,7 @@ const WorkPage = () => {
         <div className="relative">
           {/* Skeleton Grid (visible while loading) */}
           {!isVideosLoaded && (
-            <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 z-20">
+            <div className="absolute inset-0 grid grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 z-20">
               {Array.from({ length: videos.length }).map((_, i) => (
                 <div key={`skeleton-${i}`} className="aspect-[9/16] bg-white/5 animate-pulse border border-white/10" />
               ))}
@@ -96,7 +96,7 @@ const WorkPage = () => {
           )}
 
           {/* Actual Videos */}
-          <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 ${!isVideosLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-1000`}>
+          <div className={`grid grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 ${!isVideosLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-1000`}>
             {videos.map((v, i) => (
               <motion.div
                 key={v.id}
