@@ -132,7 +132,14 @@ export const Hero = () => {
       <div className="sticky top-0 left-0 w-full h-[100dvh] md:h-screen overflow-hidden">
         
         {/* DESKTOP EXPERIENCE: Canvas for Image Sequence */}
-        <div className="hidden md:block absolute inset-0 z-0 w-full h-full">
+        <div 
+          className="hidden md:block absolute inset-0 z-0 w-full h-full bg-[#050505]"
+          style={{
+            backgroundImage: `url('/images/herosection/ezgif-frame-001.png')`,
+            backgroundPosition: 'center bottom',
+            backgroundSize: 'cover'
+          }}
+        >
           <canvas
             ref={canvasRef}
             className="w-full h-full object-cover"
