@@ -8,17 +8,26 @@ export const Preloader = () => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const startTime = Date.now();
-    let isWindowLoaded = document.readyState === "complete";
+    
+    // Actually preload the 142 frames
+    const FRAME_COUNT = 142;
+    let loadedCount = 0;
 
-    const handleLoad = () => {
-      isWindowLoaded = true;
-    };
-    window.addEventListener("load", handleLoad);
+    for (let i = 0; i < FRAME_COUNT; i++) {
+      const img = new Image();
+      img.src = `/images/herosection/ezgif-frame-${(i + 1).toString().padStart(3, "0")}.png`;
+      const onLoad = () => { loadedCount++; };
+      img.onload = onLoad;
+      img.onerror = onLoad; // Count errors too so it doesn't hang infinitely
+    }
 
     const interval = setInterval(() => {
       setProgress((prev) => {
-        // If window is loaded AND minimum time has passed, finish the loader
-        if (isWindowLoaded && Date.now() - startTime > 1200) {
+        // Calculate real percentage of frames loaded
+        const targetProgress = (loadedCount / FRAME_COUNT) * 100;
+
+        // If ALL frames are loaded AND minimum time has passed, finish the loader
+        if (loadedCount === FRAME_COUNT && Date.now() - startTime > 1200) {
           clearInterval(interval);
           setTimeout(() => {
             document.body.style.overflow = "unset";
@@ -27,17 +36,15 @@ export const Preloader = () => {
           return 100;
         }
         
-        // If not loaded yet, hang at 99%
-        if (prev >= 99) return 99;
-        
-        // Rapid acceleration feel
-        return prev + Math.floor(Math.random() * 8) + 2;
+        // Rapid acceleration but capped by actual network download progress
+        // This ensures the needle visually shows the REAL loading speed!
+        const simulatedStep = prev + Math.floor(Math.random() * 5) + 2;
+        return Math.min(simulatedStep, targetProgress, 99);
       });
     }, 60);
 
     return () => {
       clearInterval(interval);
-      window.removeEventListener("load", handleLoad);
     };
   }, []);
 
