@@ -38,7 +38,7 @@ export const Navigation = () => {
           const id = el.id;
           
           if (id === "top" || el.querySelector("canvas")) {
-            activeTheme = "light";
+            activeTheme = window.innerWidth < 768 ? "dark" : "light";
           } else if (el.classList.contains("bg-black") || id === "manifesto" || el.classList.contains("bg-ink")) {
             activeTheme = "dark";
           } else {
@@ -80,7 +80,7 @@ export const Navigation = () => {
         <div
           className={`relative mx-auto flex items-center justify-between pointer-events-auto transition-all duration-[700ms] ease-in-out ${
             scrolled
-              ? `max-w-[850px] w-[95%] rounded-[100px] p-2 mt-6 ${isDarkNavbar ? 'bg-surface/95 border border-white/10 text-ink' : 'bg-ink/95 border border-black/10 text-surface'} shadow-[0_16px_40px_-12px_rgba(0,0,0,0.3)] backdrop-blur-xl`
+              ? `max-w-[850px] w-[180px] md:w-[95%] rounded-[100px] p-2 mt-6 ${isDarkNavbar ? 'bg-surface/95 border border-white/10 text-ink' : 'bg-ink/95 border border-black/10 text-surface'} shadow-[0_16px_40px_-12px_rgba(0,0,0,0.3)] backdrop-blur-xl`
               : "max-w-7xl w-full rounded-none px-6 py-6 mt-0 bg-transparent border-transparent"
           }`}
         >

@@ -11,6 +11,15 @@ export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  // Check if desktop to decide if we need to render the heavy canvas
+  useEffect(() => {
+    const checkIsDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+    return () => window.removeEventListener("resize", checkIsDesktop);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -19,6 +28,7 @@ export const Hero = () => {
 
   // Preload images
   useEffect(() => {
+    if (!isDesktop) return; // Save bandwidth on mobile
     const loadedImages: HTMLImageElement[] = [];
 
     const preloadImages = async () => {
@@ -31,10 +41,10 @@ export const Hero = () => {
     };
 
     preloadImages();
-  }, []);
+  }, [isDesktop]);
 
   const renderFrame = (index: number) => {
-    if (images.length === 0) return;
+    if (images.length === 0 || !isDesktop) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const context = canvas.getContext("2d");
@@ -65,6 +75,7 @@ export const Hero = () => {
 
   // Update canvas on scroll
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (!isDesktop) return;
     const frameIndex = Math.min(
       FRAME_COUNT - 1,
       Math.floor(latest * FRAME_COUNT)
@@ -76,6 +87,7 @@ export const Hero = () => {
   // Handle Resize and initial draw
   useEffect(() => {
     const handleResize = () => {
+      if (!isDesktop) return;
       const canvas = canvasRef.current;
       if (canvas) {
         canvas.width = window.innerWidth;
@@ -94,7 +106,7 @@ export const Hero = () => {
     window.addEventListener("resize", handleResize);
 
     // Attempt initial draw if first image loads
-    if (images.length > 0) {
+    if (images.length > 0 && isDesktop) {
       const firstImg = images[0];
       if (firstImg.complete) {
         handleResize();
@@ -104,7 +116,7 @@ export const Hero = () => {
     }
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [images, scrollYProgress]);
+  }, [images, scrollYProgress, isDesktop]);
 
   // Text 1: LIMINAL
   const t1Opacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
@@ -114,23 +126,60 @@ export const Hero = () => {
     <section 
       ref={containerRef} 
       id="top" 
-      className="relative w-full bg-background"
-      style={{ height: "200vh" }}
+      className="relative w-full bg-background h-[100dvh] md:h-[200vh]"
     >
       {/* Sticky Container for Animation */}
       <div className="sticky top-0 left-0 w-full h-[100dvh] md:h-screen overflow-hidden">
         
-        {/* Universal Canvas for Image Sequence */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 z-0 w-full h-full object-cover"
-        />
+        {/* DESKTOP EXPERIENCE: Canvas for Image Sequence */}
+        <div className="hidden md:block absolute inset-0 z-0 w-full h-full">
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-        {/* Text Overlays */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+        {/* MOBILE EXPERIENCE: Classy Image + Text */}
+        <div className="block md:hidden absolute inset-0 z-0 w-full h-full overflow-hidden bg-[#050505]">
+          <div 
+            className="w-full h-full object-cover"
+            style={{
+              backgroundImage: `url('/images/PPFREFERENCE.jpg')`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}
+          />
+          {/* Gradient Overlay for Text Legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
+          
+          <div className="absolute inset-0 flex flex-col justify-end items-center px-6 pb-[20vh]">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center text-center"
+            >
+              <h1 className="font-display text-4xl text-white tracking-widest uppercase leading-[1.1]">LIMINAL</h1>
+              <h1 className="font-display text-2xl text-white/80 tracking-widest uppercase leading-[1.1] mt-2">AUTO SOLUTIONS</h1>
+            </motion.div>
+
+            <motion.a 
+              href="#contact"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-8 px-8 py-4 glass-strong text-white font-mono-label text-xs uppercase tracking-widest rounded-full"
+            >
+              Discover Services
+            </motion.a>
+          </div>
+        </div>
+
+        {/* Text Overlays (Desktop Only) */}
+        <div className="hidden md:flex absolute inset-0 z-20 items-center justify-center pointer-events-none">
           <motion.div
             style={{ opacity: t1Opacity, y: t1Y }}
-            className="absolute inset-0 flex flex-col items-center justify-start pt-[12vh] md:pt-[10vh]"
+            className="absolute inset-0 flex flex-col items-center justify-start pt-[10vh]"
           >
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
@@ -143,12 +192,12 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Mobile Scroll Indicator */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-[#1e1e1e]/50 mix-blend-difference animate-bounce pointer-events-none"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 md:hidden flex flex-col items-center text-white/50 animate-bounce pointer-events-none"
         >
           <ChevronDown className="w-6 h-6" />
         </motion.div>
