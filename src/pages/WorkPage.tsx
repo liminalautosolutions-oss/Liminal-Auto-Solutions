@@ -26,18 +26,18 @@ const WorkPage = () => {
       <Navigation />
 
       {/* Background Grid Pattern */}
-      <div 
-        className="fixed inset-0 opacity-[0.03] pointer-events-none z-0" 
+      <div
+        className="fixed inset-0 opacity-[0.03] pointer-events-none z-0"
         style={{
           backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
           backgroundSize: '40px 40px',
           color: 'hsl(var(--ink))'
-        }} 
+        }}
       />
 
       {/* Content */}
       <section className="pt-32 pb-24 md:pt-48 md:pb-32 container relative z-10">
-        
+
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center mb-16">
           <motion.div
@@ -93,10 +93,10 @@ const WorkPage = () => {
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.6s] group-hover:scale-105"
               />
-              
+
               {/* Overlay on hover */}
               <div className="absolute inset-0 bg-ink/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
+
               {/* Play icon overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                 <div className="w-12 h-12 rounded-full glass flex items-center justify-center border border-white/20 pl-1 scale-90 group-hover:scale-100 transition-transform duration-500">

@@ -40,7 +40,7 @@ export const Navigation = () => {
           
           if (id === "top" || el.querySelector("canvas")) {
             activeTheme = "light";
-          } else if (el.classList.contains("bg-black") || id === "manifesto" || el.querySelector("video")) {
+          } else if (el.classList.contains("bg-black") || id === "manifesto" || el.classList.contains("bg-ink")) {
             activeTheme = "dark";
           } else {
             activeTheme = resolvedTheme === "dark" ? "dark" : "light";
