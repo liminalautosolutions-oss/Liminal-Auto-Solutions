@@ -52,6 +52,7 @@ export const Contact = () => {
           >
           Let's <span className="text-ember-gradient">build</span> something that lasts.
         </motion.h2>
+        </div>
 
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start mt-12">
           
