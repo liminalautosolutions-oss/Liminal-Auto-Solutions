@@ -128,7 +128,7 @@ export const Contact = () => {
                 className="group neu p-8 hover:shadow-none transition-shadow duration-500"
               >
                 <div className="font-mono-label text-ink-faint mb-4 uppercase tracking-widest text-xs">{c.label}</div>
-                <div className="font-display text-2xl text-ink group-hover:text-ember transition-colors duration-500">
+                <div className="font-display text-xl md:text-2xl break-all sm:break-normal text-ink group-hover:text-ember transition-colors duration-500">
                   {c.value}
                 </div>
                 <div className="mt-6 w-8 h-px bg-ink-faint group-hover:w-16 group-hover:bg-ember transition-all duration-500" />

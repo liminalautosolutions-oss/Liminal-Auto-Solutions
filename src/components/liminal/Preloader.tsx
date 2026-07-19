@@ -189,8 +189,8 @@ export const Preloader = () => {
             </svg>
             
             {/* Branding Text Below Speedometer */}
-            <div className="absolute -bottom-8 flex flex-col items-center gap-3 w-max">
-              <h2 className="font-display text-2xl md:text-3xl text-white tracking-widest uppercase shadow-black drop-shadow-md">
+            <div className="absolute -bottom-8 flex flex-col items-center gap-3 w-max max-w-[95vw]">
+              <h2 className="font-display text-lg sm:text-2xl md:text-3xl text-white tracking-widest uppercase shadow-black drop-shadow-md whitespace-nowrap">
                 Liminal Auto Solutions
               </h2>
               <div className="font-mono-label text-[10px] md:text-xs tracking-[0.4em] text-[#ff5722] uppercase">
