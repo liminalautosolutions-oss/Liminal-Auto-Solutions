@@ -10,7 +10,7 @@ const currentFrame = (index: number) =>
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
   const [isDesktop, setIsDesktop] = useState(true);
 
   // Check if desktop to decide if we need to render the heavy canvas
@@ -26,31 +26,74 @@ export const Hero = () => {
     offset: ["start start", "end end"],
   });
 
-  // Preload images
+  // Preload images with Interlaced Loading for slow connections
   useEffect(() => {
     if (!isDesktop) return; // Save bandwidth on mobile
-    const loadedImages: HTMLImageElement[] = [];
 
-    const preloadImages = async () => {
-      for (let i = 0; i < FRAME_COUNT; i++) {
-        const img = new Image();
-        img.src = currentFrame(i);
-        loadedImages.push(img);
+    const preloadImages = () => {
+      // Create empty array of images
+      const imgs = new Array(FRAME_COUNT).fill(null).map(() => new Image());
+      imagesRef.current = imgs;
+
+      // Define load order for interlaced loading (fast preview first)
+      const loadOrder: number[] = [];
+      
+      // Pass 1: Every 10th frame (gives ~15 frames total, very fast to load)
+      for (let i = 0; i < FRAME_COUNT; i += 10) loadOrder.push(i);
+      
+      // Pass 2: Every 5th frame
+      for (let i = 0; i < FRAME_COUNT; i += 5) {
+        if (i % 10 !== 0) loadOrder.push(i);
       }
-      setImages(loadedImages);
+      
+      // Pass 3: The rest
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        if (i % 5 !== 0) loadOrder.push(i);
+      }
+
+      // Load them
+      loadOrder.forEach((index) => {
+        imgs[index].src = currentFrame(index);
+        imgs[index].onload = () => {
+          // If the user is currently looking at this frame or nearby, redraw to upgrade quality
+          const currentProgress = scrollYProgress.get();
+          const currentIndex = Math.min(FRAME_COUNT - 1, Math.floor(currentProgress * FRAME_COUNT));
+          if (Math.abs(currentIndex - index) <= 10) {
+            requestAnimationFrame(() => renderFrame(currentIndex));
+          }
+        };
+      });
     };
 
     preloadImages();
   }, [isDesktop]);
 
   const renderFrame = (index: number) => {
+    const images = imagesRef.current;
     if (images.length === 0 || !isDesktop) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    const img = images[index];
+    let img = images[index];
+    
+    // Fallback: If exact frame isn't loaded, find the closest one that IS loaded
+    if (!img || !img.complete) {
+      let closestDist = Infinity;
+      let closestImg = null;
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        if (images[i] && images[i].complete) {
+          const dist = Math.abs(i - index);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestImg = images[i];
+          }
+        }
+      }
+      img = closestImg;
+    }
+
     if (img && img.complete) {
       const hRatio = canvas.width / img.width;
       const vRatio = canvas.height / img.height;
@@ -106,17 +149,17 @@ export const Hero = () => {
     window.addEventListener("resize", handleResize);
 
     // Attempt initial draw if first image loads
-    if (images.length > 0 && isDesktop) {
-      const firstImg = images[0];
+    if (imagesRef.current.length > 0 && isDesktop) {
+      const firstImg = imagesRef.current[0];
       if (firstImg.complete) {
         handleResize();
       } else {
-        firstImg.onload = () => handleResize();
+        firstImg.addEventListener('load', handleResize, { once: true });
       }
     }
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [images, scrollYProgress, isDesktop]);
+  }, [scrollYProgress, isDesktop]);
 
   // Text 1: LIMINAL
   const t1Opacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
