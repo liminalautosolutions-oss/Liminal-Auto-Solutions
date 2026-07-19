@@ -1,4 +1,4 @@
-import { motion, useScroll, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "next-themes";
@@ -12,27 +12,14 @@ const nav = [
 ];
 
 export const Navigation = () => {
-  const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [navbarTheme, setNavbarTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const handleDocumentClick = (e: MouseEvent) => {
-      const header = document.querySelector("header");
-      if (header && !header.contains(e.target as Node)) {
-        setIsExpanded(false);
-      }
-    };
-    document.addEventListener("click", handleDocumentClick);
-    return () => document.removeEventListener("click", handleDocumentClick);
   }, []);
 
   const toggleTheme = () => setTheme(resolvedTheme === "dark" ? "light" : "dark");
@@ -52,13 +39,10 @@ export const Navigation = () => {
           const id = el.id;
           
           if (id === "top" || el.querySelector("canvas")) {
-            // Hero section is visually light due to canvas
             activeTheme = "light";
           } else if (el.classList.contains("bg-black") || id === "manifesto" || el.querySelector("video")) {
-            // Manifesto section is visually dark due to background video
             activeTheme = "dark";
           } else {
-            // Other sections match the active system theme
             activeTheme = resolvedTheme === "dark" ? "dark" : "light";
           }
           break;
@@ -88,189 +72,119 @@ export const Navigation = () => {
   }, [isOpen]);
 
   const isDarkNavbar = navbarTheme === "dark";
-  const isExpandedState = !scrolled || isExpanded || isOpen;
-
-  const headerVariants = {
-    collapsed: {
-      left: "50%",
-      x: "-50%",
-      y: 0,
-      opacity: 1,
-      width: "72px",
-      height: "48px",
-      borderRadius: "0px 0px 14px 14px",
-      backgroundColor: mounted && resolvedTheme === "dark" ? "rgba(18, 18, 18, 0.9)" : "rgba(240, 240, 240, 0.9)",
-      borderColor: mounted && resolvedTheme === "dark" ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)",
-      borderBottomWidth: "1px",
-      borderLeftWidth: "1px",
-      borderRightWidth: "1px",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-    },
-    expanded: {
-      left: "50%",
-      x: "-50%",
-      y: 0,
-      opacity: 1,
-      width: "100%",
-      height: scrolled ? "64px" : "80px",
-      borderRadius: "0px",
-      backgroundColor: scrolled
-        ? isDarkNavbar
-          ? "rgba(10, 10, 10, 0.8)"
-          : "rgba(245, 245, 245, 0.8)"
-        : "rgba(0, 0, 0, 0)",
-      borderColor: scrolled
-        ? isDarkNavbar
-          ? "rgba(255, 255, 255, 0.05)"
-          : "rgba(0, 0, 0, 0.05)"
-        : "rgba(0, 0, 0, 0)",
-      borderBottomWidth: scrolled ? "1px" : "0px",
-      borderLeftWidth: "0px",
-      borderRightWidth: "0px",
-      boxShadow: scrolled ? "0 4px 6px -1px rgba(0, 0, 0, 0.05)" : "none",
-    }
-  };
 
   return (
     <>
-      <motion.header
-        initial={{ y: -40, opacity: 0 }}
-        variants={headerVariants}
-        animate={isExpandedState ? "expanded" : "collapsed"}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => setIsExpanded(false)}
-        className="fixed top-0 z-50 border-solid border-transparent flex items-center justify-center overflow-hidden"
-        style={{ originY: 0 }}
+      <header
+        className="fixed top-0 left-0 w-full z-50 pointer-events-none pt-0"
       >
-        {/* Collapsed Trigger Icon */}
-        <motion.div
-          animate={{ 
-            opacity: isExpandedState ? 0 : 1,
-            pointerEvents: isExpandedState ? "none" : "auto",
-            scale: isExpandedState ? 0.8 : 1
-          }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="absolute inset-0 flex items-center justify-center cursor-pointer"
-          onClick={() => setIsExpanded(true)}
+        <div
+          className={`mx-auto flex items-center justify-between pointer-events-auto transition-all duration-[700ms] ease-in-out ${
+            scrolled
+              ? `max-w-[850px] w-[95%] rounded-[100px] p-2 mt-6 ${isDarkNavbar ? 'bg-surface/95 border border-white/10 text-ink' : 'bg-ink/95 border border-black/10 text-surface'} shadow-[0_16px_40px_-12px_rgba(0,0,0,0.3)] backdrop-blur-xl`
+              : "max-w-7xl w-full rounded-none px-6 py-6 mt-0 bg-transparent border-transparent"
+          }`}
         >
-          {/* Custom Supercar Front Silhouette */}
-          <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-            {/* Windshield & Roof Outline */}
-            <path 
-              d="M7 11.5L9.5 8H14.5L17 11.5" 
-              stroke="currentColor" 
-              strokeWidth="1.2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
+          {/* Logo */}
+          <Link 
+            to="/" 
+            className={`relative flex items-center shrink-0 overflow-hidden transition-all duration-[700ms] ease-in-out ${
+              scrolled 
+                ? `w-12 h-12 rounded-full ${isDarkNavbar ? 'bg-ink' : 'bg-surface'}` 
+                : `w-[120px] h-12 rounded-full bg-transparent`
+            }`}
+          >
+            <span 
+              className={`absolute transition-all duration-[700ms] ease-in-out rounded-full bg-ember animate-ember-pulse ${
+                scrolled 
+                  ? "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5" 
+                  : "left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5"
+              }`} 
             />
-            {/* Chassis Outline */}
-            <path 
-              d="M3.5 14C3.5 13 4.2 11.5 6.5 11.5H17.5C19.8 11.5 20.5 13 20.5 14C20.5 14.5 20 16 19 16.5C18 17 16 17.5 12 17.5C8 17.5 6 17 5 16.5C4 16 3.5 14.5 3.5 14Z" 
-              stroke="currentColor" 
-              strokeWidth="1.2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-            />
-            {/* Headlights (Glowing Amber) */}
-            <circle cx="6" cy="14" r="1.2" className="fill-ember animate-ember-pulse" />
-            <circle cx="18" cy="14" r="1.2" className="fill-ember animate-ember-pulse" />
-          </svg>
-        </motion.div>
+            <span 
+              className={`absolute top-1/2 -translate-y-1/2 transition-all duration-[700ms] ease-in-out font-display text-xl tracking-tight whitespace-nowrap ${
+                scrolled 
+                  ? "left-1/2 opacity-0 scale-90 pointer-events-none" 
+                  : "left-4 opacity-100 scale-100"
+              } ${isDarkNavbar ? "text-white" : "text-black"}`}
+            >
+              Liminal
+            </span>
+          </Link>
 
-        {/* Full Navbar Contents */}
-        <motion.div
-          animate={{ 
-            opacity: isExpandedState ? 1 : 0,
-            pointerEvents: isExpandedState ? "auto" : "none",
-            y: isExpandedState ? 0 : -10
-          }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: isExpandedState ? 0.15 : 0 }}
-          className="w-full h-full flex items-center"
-        >
-          <div className="container flex items-center justify-between w-full">
-            <Link to="/" className="flex items-center gap-2 group z-50 relative" onClick={() => setIsExpanded(false)}>
-              <span className="w-1.5 h-1.5 rounded-full bg-ember animate-ember-pulse" />
-              <span className={`font-display text-xl tracking-tight transition-colors duration-500 ${isDarkNavbar ? "text-white" : "text-black"}`}>
-                Liminal
-              </span>
+          {/* Nav Links */}
+          <nav className={`hidden md:flex items-center transition-all duration-[700ms] ease-in-out ${
+            scrolled ? "gap-6 lg:gap-8" : "gap-8 lg:gap-12"
+          }`}>
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`font-mono-label text-xs link-underline transition-colors duration-300 ${
+                  scrolled
+                    ? `${isDarkNavbar ? 'text-ink hover:text-ember' : 'text-surface hover:text-ember'}`
+                    : `${isDarkNavbar ? 'text-zinc-300 hover:text-white' : 'text-zinc-900 hover:text-black'}`
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right Controls */}
+          <div className={`flex items-center shrink-0 transition-all duration-[700ms] ease-in-out ${
+            scrolled ? "gap-2" : "gap-3"
+          }`}>
+            <button
+              onClick={toggleTheme}
+              className={`relative flex items-center justify-center shrink-0 transition-all duration-[700ms] ease-in-out ${
+                scrolled
+                  ? `w-12 h-12 rounded-full hover:scale-105 ${isDarkNavbar ? 'text-ink' : 'text-surface'}`
+                  : `w-12 h-12 rounded-full border ${isDarkNavbar ? 'text-zinc-300 hover:text-ember bg-white/5 border-white/10' : 'text-zinc-900 hover:text-ember bg-black/5 border-black/15'}`
+              }`}
+              aria-label="Toggle Theme"
+            >
+              <Sun className={`absolute transition-all duration-500 ${mounted && resolvedTheme === "dark" ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"} w-4 h-4`} />
+              <Moon className={`absolute transition-all duration-500 ${mounted && resolvedTheme !== "dark" ? "opacity-100 rotate-0 scale-100" : "opacity-0 rotate-90 scale-50"} w-4 h-4`} />
+            </button>
+
+            <Link
+              to="/#contact"
+              className={`hidden md:flex items-center justify-center font-mono-label text-xs transition-all duration-[700ms] ease-in-out shrink-0 whitespace-nowrap ${
+                scrolled
+                  ? `w-[110px] h-12 rounded-full hover:scale-105 ${isDarkNavbar ? 'bg-ink text-surface' : 'bg-surface text-ink'}`
+                  : `w-[100px] h-12 rounded-lg border ${isDarkNavbar ? 'text-zinc-300 hover:text-white bg-white/5 border-white/10' : 'text-zinc-900 hover:text-black bg-black/5 border-black/15'}`
+              }`}
+            >
+              Engage
             </Link>
 
-            <nav className="hidden md:flex items-center gap-10">
-              {nav.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`text-xs font-mono-label transition-colors duration-300 link-underline ${
-                    isDarkNavbar
-                      ? "text-zinc-400 hover:text-white"
-                      : "text-zinc-900 hover:text-black"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={toggleTheme}
-                className={`p-2.5 rounded-full transition-all duration-300 flex items-center justify-center relative z-50 cursor-pointer active:scale-95 ${
-                  isDarkNavbar
-                    ? "text-zinc-300 hover:text-ember bg-white/5 hover:bg-white/10 border border-white/10"
-                    : "text-zinc-900 hover:text-ember bg-black/5 hover:bg-black/10 border border-black/15"
-                }`}
-                aria-label="Toggle Theme"
-              >
-                {mounted && resolvedTheme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </button>
-
-              <Link
-                to="/#contact"
-                className={`hidden md:inline-flex text-xs font-mono-label px-4 py-2.5 transition-all duration-300 rounded-lg ${
-                  isDarkNavbar
-                    ? "text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10"
-                    : "text-zinc-900 hover:text-black bg-black/5 hover:bg-black/10 border border-black/15"
-                }`}
-              >
-                Engage
-              </Link>
-
-              {/* Mobile Menu Button */}
-              <button
-                className="md:hidden p-2 z-50 relative focus:outline-none"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsOpen(!isOpen);
-                }}
-                aria-label="Toggle Menu"
-              >
-                <div className="flex flex-col gap-1.5 w-6">
-                  <span
-                    className={`h-px transition-transform duration-300 ${
-                      isDarkNavbar ? "bg-white" : "bg-black"
-                    } ${isOpen ? "rotate-45 translate-y-[7px]" : ""}`}
-                  />
-                  <span
-                    className={`h-px transition-opacity duration-300 ${
-                      isDarkNavbar ? "bg-white" : "bg-black"
-                    } ${isOpen ? "opacity-0" : ""}`}
-                  />
-                  <span
-                    className={`h-px transition-transform duration-300 ${
-                      isDarkNavbar ? "bg-white" : "bg-black"
-                    } ${isOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
-                  />
-                </div>
-              </button>
-            </div>
+            {/* Mobile Menu Toggle */}
+            <button
+              className={`md:hidden relative flex flex-col justify-center items-center shrink-0 transition-all duration-[700ms] ease-in-out ${
+                scrolled 
+                  ? `w-12 h-12 rounded-full ${isDarkNavbar ? 'bg-ink' : 'bg-surface'}` 
+                  : 'w-12 h-12 bg-transparent'
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(!isOpen);
+              }}
+              aria-label="Toggle Menu"
+            >
+              <span className={`w-5 h-px transition-transform duration-300 ${
+                scrolled ? (isDarkNavbar ? 'bg-surface' : 'bg-ink') : (isDarkNavbar ? 'bg-white' : 'bg-black')
+              } ${isOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+              <span className={`w-5 h-px transition-opacity duration-300 ${
+                scrolled ? (isDarkNavbar ? 'bg-surface' : 'bg-ink') : (isDarkNavbar ? 'bg-white' : 'bg-black')
+              } ${isOpen ? "opacity-0" : ""}`} />
+              <span className={`w-5 h-px transition-transform duration-300 ${
+                scrolled ? (isDarkNavbar ? 'bg-surface' : 'bg-ink') : (isDarkNavbar ? 'bg-white' : 'bg-black')
+              } ${isOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            </button>
           </div>
-        </motion.div>
-      </motion.header>
+        </div>
+      </header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -287,10 +201,7 @@ export const Navigation = () => {
                 <motion.div key={item.href} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 + 0.1, duration: 0.4 }}>
                   <Link
                     to={item.href}
-                    onClick={() => {
-                      setIsOpen(false);
-                      setIsExpanded(false);
-                    }}
+                    onClick={() => setIsOpen(false)}
                     className="text-3xl font-display text-ink hover:text-ember transition-colors"
                   >
                     {item.label}
@@ -300,10 +211,7 @@ export const Navigation = () => {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: nav.length * 0.05 + 0.1, duration: 0.4 }}>
                 <Link
                   to="/#contact"
-                  onClick={() => {
-                    setIsOpen(false);
-                    setIsExpanded(false);
-                  }}
+                  onClick={() => setIsOpen(false)}
                   className="mt-8 inline-block text-sm font-mono-label text-ink neu px-8 py-4 hover:shadow-none transition-all duration-300"
                 >
                   Engage →
