@@ -8,14 +8,14 @@ export const Preloader = () => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const startTime = Date.now();
-    
+
     // We only need to preload the critical first-paint image to ensure a smooth reveal.
     // The rest of the 142 frames are asynchronously loaded by Hero.tsx so we don't block the site.
     const isMobile = window.innerWidth < 768;
     const criticalImages = isMobile 
       ? ["/images/PPFREFERENCE.jpg"] 
-      : ["/images/herosection/ezgif-frame-001.png"];
-      
+      : ["https://res.cloudinary.com/qjyavfor/image/upload/f_auto,q_auto/v1784569481/ezgif-frame-001.png"];
+
     let loadedCount = 0;
     criticalImages.forEach(src => {
       const img = new Image();
@@ -28,7 +28,7 @@ export const Preloader = () => {
     const interval = setInterval(() => {
       setProgress((prev) => {
         const timeElapsed = Date.now() - startTime;
-        
+
         // Progress based on a quick 1.2s timer instead of 142 network requests
         const timeProgress = Math.min((timeElapsed / 1200) * 100, 100);
         const criticalLoaded = loadedCount === criticalImages.length;
@@ -43,7 +43,7 @@ export const Preloader = () => {
           }, 800); // Wait at 220km/h for a moment before sliding up
           return 100;
         }
-        
+
         // Rapid acceleration simulating the needle moving
         const simulatedStep = prev + Math.floor(Math.random() * 8) + 4;
         return Math.min(simulatedStep, timeProgress, 99);
@@ -60,7 +60,7 @@ export const Preloader = () => {
   const circumference = 2 * Math.PI * radius;
   // 270 degree arc (from bottom left to bottom right)
   const arcLength = (270 / 360) * circumference;
-  
+
   // As progress goes 0->100, offset goes from arcLength -> 0
   const strokeDashoffset = arcLength - (progress / 100) * arcLength;
 
@@ -82,10 +82,10 @@ export const Preloader = () => {
 
           {/* Speedometer Container */}
           <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] flex items-center justify-center">
-            
+
             {/* SVG Speedometer */}
-            <svg 
-              className="absolute inset-0 w-full h-full drop-shadow-[0_0_15px_rgba(255,87,34,0.2)]" 
+            <svg
+              className="absolute inset-0 w-full h-full drop-shadow-[0_0_15px_rgba(255,87,34,0.2)]"
               viewBox="0 0 340 340"
             >
               <defs>
@@ -113,9 +113,9 @@ export const Preloader = () => {
               {Array.from({ length: 45 }).map((_, i) => {
                 const angle = 135 + (i * (270 / 44));
                 const rad = (angle * Math.PI) / 180;
-                
+
                 const isMajor = i % 4 === 0; // Every 20 kmh
-                
+
                 // Tick lines
                 const innerRadius = isMajor ? radius - 16 : radius - 8;
                 const outerRadius = radius - 2;
@@ -132,25 +132,25 @@ export const Preloader = () => {
 
                 return (
                   <g key={`tick-${i}`}>
-                    <line 
-                      x1={x1} y1={y1} x2={x2} y2={y2} 
-                      stroke="#ffffff" 
-                      strokeWidth={isMajor ? "2" : "1"} 
-                      strokeOpacity={isMajor ? "0.9" : "0.3"} 
+                    <line
+                      x1={x1} y1={y1} x2={x2} y2={y2}
+                      stroke="#ffffff"
+                      strokeWidth={isMajor ? "2" : "1"}
+                      strokeOpacity={isMajor ? "0.9" : "0.3"}
                       strokeLinecap="round"
                     />
                     {isMajor && (
-                      <text 
-                        x={lx} 
-                        y={ly} 
-                        fill="#ffffff" 
+                      <text
+                        x={lx}
+                        y={ly}
+                        fill="#ffffff"
                         fillOpacity="0.8"
-                        fontSize="11" 
+                        fontSize="11"
                         fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
                         fontWeight="600"
-                        textAnchor="middle" 
+                        textAnchor="middle"
                         alignmentBaseline="middle"
-                        // Rotate text slightly so it's readable
+                      // Rotate text slightly so it's readable
                       >
                         {label}
                       </text>
@@ -183,7 +183,7 @@ export const Preloader = () => {
               >
                 {/* Invisible bounding box to force correct SVG transform origin */}
                 <rect x="0" y="0" width="340" height="340" fill="none" />
-                
+
                 {/* Needle Drop Shadow */}
                 <polygon points="170,166 260,169 260,171 170,174 155,170" fill="rgba(0,0,0,0.5)" transform="translate(2, 4)" />
                 {/* Needle Body (Orange) */}
@@ -194,7 +194,7 @@ export const Preloader = () => {
                 <circle cx="170" cy="170" r="5" fill="#ff5722" />
               </motion.g>
             </svg>
-            
+
             {/* Branding Text Below Speedometer */}
             <div className="absolute -bottom-8 flex flex-col items-center gap-3 w-max max-w-[95vw]">
               <h2 className="font-display text-lg sm:text-2xl md:text-3xl text-white tracking-widest uppercase shadow-black drop-shadow-md whitespace-nowrap">

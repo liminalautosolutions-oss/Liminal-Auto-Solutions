@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 const FRAME_COUNT = 142;
 
 const currentFrame = (index: number) =>
-  `/images/herosection/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.png`;
+  `https://res.cloudinary.com/qjyavfor/image/upload/f_auto,q_auto/v1784569481/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.png`;
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,15 +37,15 @@ export const Hero = () => {
 
       // Define load order for interlaced loading (fast preview first)
       const loadOrder: number[] = [];
-      
+
       // Pass 1: Every 10th frame (gives ~15 frames total, very fast to load)
       for (let i = 0; i < FRAME_COUNT; i += 10) loadOrder.push(i);
-      
+
       // Pass 2: Every 5th frame
       for (let i = 0; i < FRAME_COUNT; i += 5) {
         if (i % 10 !== 0) loadOrder.push(i);
       }
-      
+
       // Pass 3: The rest
       for (let i = 0; i < FRAME_COUNT; i++) {
         if (i % 5 !== 0) loadOrder.push(i);
@@ -77,7 +77,7 @@ export const Hero = () => {
     if (!context) return;
 
     let img = images[index];
-    
+
     // Fallback: If exact frame isn't loaded, find the closest one that IS loaded
     if (!img || !img.complete) {
       let closestDist = Infinity;
@@ -166,19 +166,19 @@ export const Hero = () => {
   const t1Y = useTransform(scrollYProgress, [0, 0.3], ["0%", "-100%"]);
 
   return (
-    <section 
-      ref={containerRef} 
-      id="top" 
+    <section
+      ref={containerRef}
+      id="top"
       className="relative w-full bg-background h-[100dvh] md:h-[200vh]"
     >
       {/* Sticky Container for Animation */}
       <div className="sticky top-0 left-0 w-full h-[100dvh] md:h-screen overflow-hidden">
-        
+
         {/* DESKTOP EXPERIENCE: Canvas for Image Sequence */}
-        <div 
+        <div
           className="hidden md:block absolute inset-0 z-0 w-full h-full bg-[#050505]"
           style={{
-            backgroundImage: `url('/images/herosection/ezgif-frame-001.png')`,
+            backgroundImage: `url('https://res.cloudinary.com/qjyavfor/image/upload/f_auto,q_auto/v1784569481/ezgif-frame-001.png')`,
             backgroundPosition: 'center bottom',
             backgroundSize: 'cover'
           }}
@@ -191,7 +191,7 @@ export const Hero = () => {
 
         {/* MOBILE EXPERIENCE: Classy Image + Text */}
         <div className="block md:hidden absolute inset-0 z-0 w-full h-full overflow-hidden bg-[#050505]">
-          <div 
+          <div
             className="w-full h-full object-cover"
             style={{
               backgroundImage: `url('/images/PPFREFERENCE.jpg')`,
@@ -201,9 +201,9 @@ export const Hero = () => {
           />
           {/* Gradient Overlay for Text Legibility */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-          
+
           <div className="absolute inset-0 flex flex-col justify-end items-center px-6 pb-[20vh]">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -213,7 +213,7 @@ export const Hero = () => {
               <h1 className="font-display text-2xl text-white/80 tracking-widest uppercase leading-[1.1] mt-2">AUTO SOLUTIONS</h1>
             </motion.div>
 
-            <motion.a 
+            <motion.a
               href="#contact"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
